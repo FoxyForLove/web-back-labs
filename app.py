@@ -3,4 +3,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def start():
-    return "Web-сервер на flask"
+    return "<!doctype html>" \
+    "<html>" \
+    "   <body>" \
+    "       <h1>Web-сервес на flask </h1>" \
+    "   </body>" \
+    "</html>"
