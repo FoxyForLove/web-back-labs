@@ -1,4 +1,4 @@
-from flask import Flask, url_for, request
+from flask import Flask, url_for, request, redirect
 import datetime
 app = Flask(__name__)
 
@@ -50,7 +50,7 @@ def counter():
     time = datetime.datetime.today()
     url = request.url
     client_ip = request.remote_addr 
-    
+
     return '''
 <!doctype html>
 <html> 
@@ -63,3 +63,7 @@ def counter():
     </body> 
 </html>
 '''
+
+@app.route('/info')
+def info():
+    return redirect("/author")
