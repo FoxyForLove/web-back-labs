@@ -5,6 +5,9 @@ body {
     text-align: center;
     padding: 20px;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
 }
 
 h1 {
@@ -28,4 +31,61 @@ img {
 img:hover {
     transform: scale(1.04);
     box-shadow: 0 8px 28px rgba(161, 77, 77, 0.35);
+}
+
+header {
+    background-color: #f7d9d0;
+    color: #250808;
+    text-align: center;
+    padding: 20px 20px;
+    font-size: 20px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+nav {
+    margin: 30px auto;
+    text-align: center;
+}
+
+nav a {
+    text-decoration: none;
+    background-color: #753f3f;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #c77c7c;
+}
+
+footer {
+    margin-top: auto;
+    background-color: #f7d9d0; 
+    color: #4a2f2f;
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+    border-top: 1px solid #e0bfbf;
+}
+
+.back-link {
+    display: block;
+    width: fit-content;
+    margin: 20px auto;
+    padding: 10px 15px;
+    background-color: #a14d4d;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.back-link:hover {
+    background-color: #8b3e3e;
 }

@@ -3,6 +3,48 @@ import datetime
 app = Flask(__name__)
 
 @app.route('/')
+@app.route('/index')
+def index():
+    css= url_for("static", filename="lab1.css")
+    return '''
+<!doctype html>
+    <head>
+        <link rel="stylesheet" href = "''' + css +'''">
+        <title>НГТУ, ФБ, Лабораторные работы</title>
+    </head>
+    <body>
+        <header>
+            НГТУ, ФБ, WEB-программирование, часть 2. Список лабораторных
+        </header>
+
+        <nav>
+            <a href="/lab1">Первая лабораторная</a>
+        </nav>
+
+        <footer>
+            ФИО: Булыгина Елизавета Денисовна | Группа: ФБИ-34 | Курс: 3 | Год: 2025
+        </footer>
+    </body>
+</html>
+'''
+
+@app.route('/lab1')
+def lab1():
+    css= url_for("static", filename="lab1.css")
+    return '''
+<!doctype html>
+<html>
+    <head>
+        <title>Первая лабораторная</title>
+        <link rel="stylesheet" href = "''' + css +'''">
+    </head>
+    <body>
+        <h1>Первая лабораторная работа</h1>
+        <a class="back-link" href="/">Вернуться на главную</a>
+    </body>
+</html>
+'''
+
 @app.route('/lab1/web')
 def web():
     return """<!doctype html>
