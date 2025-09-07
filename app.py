@@ -1,5 +1,7 @@
-from flask import Flask, url_for, request, redirect
+from flask import Flask, url_for, request, redirect, abort
 import datetime
+from werkzeug.exceptions import HTTPException
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -147,6 +149,58 @@ def created():
 </html>
 ''',201
 
+@app.errorhandler(400)
+def error_400(err):
+    return "400 Bad Request — Неверный запрос от клиента", 400
+
+@app.errorhandler(401)
+def error_401(err):
+    return "401 Unauthorized — Необходима аутентификация", 401
+
+class PaymentRequired(HTTPException):
+    code = 402
+    description = "402 Payment Required — Требуется оплата"
+
+@app.errorhandler(PaymentRequired)
+def handle_402(err):
+    return err.description, err.code
+
+@app.errorhandler(403)
+def error_403(err):
+    return "403 Forbidden — Доступ запрещён", 403
+
+@app.errorhandler(405)
+def error_405(err):
+    return "405 Method Not Allowed — Метод не разрешён", 405
+
+@app.errorhandler(418)
+def error_418(err):
+    return "418 I'm a teapot — Я - чайник", 418
+
 @app.errorhandler(404)
 def not_found(err):
     return "Нет тут такой страницы",404
+    
+@app.route('/400')
+def route_400():
+    abort(400)
+
+@app.route('/401')
+def route_401():
+    abort(401)
+
+@app.route('/402')
+def route_402():
+    raise PaymentRequired()
+
+@app.route('/403')
+def route_403():
+    abort(403)
+
+@app.route('/405')
+def route_405():
+    abort(405)
+
+@app.route('/418')
+def route_418():
+    abort(418)
