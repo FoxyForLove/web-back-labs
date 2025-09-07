@@ -45,6 +45,15 @@ header {
     border-bottom-right-radius: 8px;
 }
 
+.lab-text {
+    max-width: 800px;
+    margin: 30px auto;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #4a2f2f;
+    text-align: justify;
+}
+
 nav {
     margin: 30px auto;
     text-align: center;
