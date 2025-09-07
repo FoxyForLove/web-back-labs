@@ -1,0 +1,31 @@
+body {
+    background-color: #fcefe8; 
+    color: #4a2f2f; 
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+}
+
+h1 {
+    font-size: 34px;
+    font-weight: 600;
+    color: #772d2d; 
+    margin-bottom: 25px;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+}
+
+img {
+    width: 400px;
+    height: auto;
+    border-radius: 14px; 
+    box-shadow: 0 6px 24px rgba(161, 77, 77, 0.25); 
+    margin-top: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+img:hover {
+    transform: scale(1.04);
+    box-shadow: 0 8px 28px rgba(161, 77, 77, 0.35);
+}
