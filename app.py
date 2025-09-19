@@ -91,8 +91,11 @@ def image():
         <h1> Грустный котик (Я) </h1>
         <img src="''' + path +'''">
     </body> 
-</html>
-'''
+</html> ''',200, {
+            'Content-Language': 'ru',
+            'X-Developer': 'Liza',                   
+            'X-Life': 'Repeating the same action over and over and expecting change is the definition of insanity'
+        }
 
 count = 0 
 
