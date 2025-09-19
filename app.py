@@ -4,6 +4,8 @@ from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__)
 
+access_log = [] 
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -212,26 +214,41 @@ def created():
         </footer>
     </body> 
 </html>
-''',201
+''',201 
 
 @app.errorhandler(404)
 def not_found(err):
-    path2 = url_for("static",filename="kitty2.jpg")
-    css = url_for("static",filename="lab1.css")
+    path2 = url_for("static", filename="kitty2.jpg")
+    css = url_for("static", filename="lab1.css")
+    ip = request.remote_addr
+    now = datetime.datetime.now()
+    url = request.url
+
+    access_log.append((now, ip, url))
+    log_text = '<br>'.join(['[ {} | пользователь: {} ] зашел на адрес: {}'.format(e[0], e[1], e[2]) for e in access_log])
+   
     return '''
 <!doctype html>
+<html>
     <head>
-        <title>Страница не найдена (Нинада вам оно значит)</title>
-        <link rel="stylesheet" href = "''' + css +'''">
+        <title>Страница не найдена (404)</title>
+        <link rel="stylesheet" href="''' + css + '''">
     </head>
     <body>
         <header>
             НГТУ, ФБ, WEB-программирование, часть 2
         </header>
         <div class="error404-page">
-            <h1>Упс! Ошибка 404 </h1>
-            <img src="''' + path2 +'''">
+            <h1>Упс! Ошибка 404</h1>
+            <img src="''' + path2 + '''">
             <p>Кажется, вы забрели не туда. Уйдите.</p>
+            <p>Ваш IP: ''' + ip + '''</p>
+            <p>Дата и время доступа: ''' + str(now) + '''</p>
+            <a class="back-link" href="/">Вернуться на главную</a>
+            <div class="access-log">
+                <h2>Журнал посещений:</h2>
+                ''' + log_text + '''
+             </div>
         </div>
         <footer>
             ФИО: Булыгина Елизавета Денисовна | Группа: ФБИ-34 | Курс: 3 | Год: 2025
@@ -239,6 +256,8 @@ def not_found(err):
     </body>
 </html>
 ''', 404
+
+
 
 @app.errorhandler(500)
 def internal_server_error(err):

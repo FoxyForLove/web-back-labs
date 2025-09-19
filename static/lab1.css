@@ -182,3 +182,23 @@ ul li a:hover {
     background-color: #c77c7c;
     transform: translateY(-2px);
 }
+
+.access-log {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff4e6;
+    border-left: 6px solid #a14d4d;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #4a2f2f;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.access-log h2 {
+    text-align: center;
+    color: #772d2d;
+    margin-bottom: 15px;
+}
+
