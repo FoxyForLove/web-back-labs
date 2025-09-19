@@ -169,6 +169,26 @@ def not_found(err):
 </html>
 ''', 404
 
+@app.errorhandler(500)
+def internal_server_error(err):
+    path2 = url_for("static",filename="kitty2.jpg")
+    css = url_for("static",filename="lab1.css")
+    return '''
+<!doctype html>
+    <head>
+        <title>Ошибка 500</title>
+        <link rel="stylesheet" href = "''' + css +'''">
+    </head>
+    <body>
+        <div class="error500">
+            <h1>Внутренняя ошибка сервера (500)</h1>
+            <p>Сервер сломался. Чинить я его не собираюсь</p>
+        </div>
+     </body>
+</html>
+''', 500
+
+
 @app.errorhandler(400)
 def error_400(err):
     return "400 Bad Request — Неверный запрос от клиента", 400
@@ -220,3 +240,7 @@ def route_405():
 @app.route('/418')
 def route_418():
     abort(418)
+
+@app.route("/500")
+def cause_error():
+    return 1 / 0 
