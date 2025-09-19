@@ -98,3 +98,19 @@ footer {
 .back-link:hover {
     background-color: #8b3e3e;
 }
+
+.error404-page {
+    text-align: center;
+    padding: 20px;
+}
+
+.error404-page h1 {
+    font-size: 48px;
+    color: #a14d4d;
+}
+
+.error404-page p {
+    font-size: 20px;
+    max-width: 700px;
+    margin: 30px auto;
+}

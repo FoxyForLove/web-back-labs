@@ -149,6 +149,26 @@ def created():
 </html>
 ''',201
 
+@app.errorhandler(404)
+def not_found(err):
+    path2 = url_for("static",filename="kitty2.jpg")
+    css = url_for("static",filename="lab1.css")
+    return '''
+<!doctype html>
+    <head>
+        <title>Страница не найдена (Нинада вам оно значит)</title>
+        <link rel="stylesheet" href = "''' + css +'''">
+    </head>
+    <body>
+        <div class="error404-page">
+            <h1>Упс! Ошибка 404 </h1>
+            <img src="''' + path2 +'''">
+            <p>Кажется, вы забрели не туда. Уйдите.</p>
+        </div>
+    </body>
+</html>
+''', 404
+
 @app.errorhandler(400)
 def error_400(err):
     return "400 Bad Request — Неверный запрос от клиента", 400
@@ -176,10 +196,6 @@ def error_405(err):
 @app.errorhandler(418)
 def error_418(err):
     return "418 I'm a teapot — Я - чайник", 418
-
-@app.errorhandler(404)
-def not_found(err):
-    return "Нет тут такой страницы",404
     
 @app.route('/400')
 def route_400():
