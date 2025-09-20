@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block main %}
+<h1>Цветок №{{ flower_id }}</h1>
+<p>Название: {{ flower.name }}</p>
+<p>Цена: {{ flower.price }} &#8381;</p>
+<p><a href="{{ url_for('all_flowers') }}">Посмотреть все цветы</a></p>
+{% endblock %}

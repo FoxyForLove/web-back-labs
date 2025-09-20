@@ -357,130 +357,47 @@ def a():
 def a2():
     return 'Со слэшем'
 
-flower_list = ['Черная роза','Орхидея','Лотос','Кадупул']
+flower_list = [
+    {"name": "Черная роза", "price": 150},
+    {"name": "Орхидея", "price": 200},
+    {"name": "Лотос", "price": 180},
+    {"name": "Кадупул", "price": 300}
+]
 
 @app.route('/lab2/flowers')
 def all_flowers():
-    css = url_for("static", filename="main.css")
-    flowers_all = "".join(f"<li>{i}: {name}</li>" for i, name in enumerate(flower_list))
-    return f"""
-<!doctype html>
-<html>
-    <head>
-        <link rel="stylesheet" href="{css}">
-    </head>
-    <body>
-        <header>
-            НГТУ, ФБ, WEB-программирование, часть 2
-        </header>
-
-        <main>
-            <h1>Список всех цветов</h1>
-            <p>Всего цветов: {len(flower_list)}</p>
-            <ul class="flower-list">
-                {flowers_all}
-            </ul>
-            <p><a href="/lab2/clear_flowers">Очистить список</a></p>
-        </main>
-
-        <footer>
-            ФИО: Булыгина Елизавета Денисовна | Группа: ФБИ-34 | Курс: 3 | Год: 2025
-        </footer>
-    </body>
-</html>
-"""
+    return render_template('flowers.html', flowers=flower_list)
 
 @app.route('/lab2/flowers/<int:flower_id>')
-def flowers(flower_id):
+def flower_detail(flower_id):
     if flower_id >= len(flower_list):
         abort(404)
-    else: 
-        flower_name = flower_list[flower_id]
-        css = url_for("static", filename="main.css")
-    return f"""
-<!doctype html> 
-<html>
-    <body>
+    flower = flower_list[flower_id]
+    return render_template('flower_detail.html', flower=flower, flower_id=flower_id)
 
-    <header>
-        НГТУ, ФБ, WEB-программирование, часть 2
-        <link rel="stylesheet" href="{css}">
-    </header>
+@app.route('/lab2/add_flower', methods=['POST'])
+def add_flower():
+    name = request.form.get('name')
+    price = int(request.form.get('price', 0))  
 
-        <h1>Цветок №{flower_id}</h1>
-        <p>Название: {flower_name}</p>
-        <p><a href="/lab2/flowers">Посмотреть все цветы</a></p>
-
-    <footer>
-        ФИО: Булыгина Елизавета Денисовна | Группа: ФБИ-34 | Курс: 3 | Год: 2025
-    </footer>
-
-    </body>
-</html>
-"""
+    if price < 0:
+        return redirect(url_for('all_flowers', error="Цена не может быть отрицательной"))
     
-@app.route('/lab2/add_flower/')
-def add_flower_no_name():
-    return Response("вы не задали имя цветка", status=400)
+    flower_list.append({"name": name, "price": price})
+    return redirect(url_for('all_flowers'))
 
-@app.route('/lab2/add_flower/<name>')
-def add_flower(name):
-    css = url_for("static", filename="main.css")
-    flower_list.append(name)
-    return f''' 
-<!doctype html>
-<html> 
-    <body> 
-        <head>
-            <link rel="stylesheet" href="{css}">
-        </head>
-
-        <header>
-            НГТУ, ФБ, WEB-программирование, часть 2
-        </header>
-
-        <main>
-            <h1>Добавлен новый цветок!</h1>
-            <p>Название нового цветка: {name}</p>
-            <p>Всего цветков: {len(flower_list)}</p>
-            <p><a href="/lab2/flowers">Посмотреть все цветы</a></p>
-        </main>
-
-        <footer>
-            ФИО: Булыгина Елизавета Денисовна | Группа: ФБИ-34 | Курс: 3 | Год: 2025
-        </footer>
-    </body> 
-</html>
-'''
+@app.route('/lab2/delete_flower/<int:flower_id>')
+def delete_flower(flower_id):
+    if flower_id >= len(flower_list):
+        abort(404)
+    flower_list.pop(flower_id)
+    return redirect(url_for('all_flowers'))
 
 @app.route('/lab2/clear_flowers')
 def clear_flowers():
-    css = url_for("static", filename="main.css")
     flower_list.clear()
-    return f"""
-<!doctype html>
-<html>
-    <body>
-    <head>
-            <link rel="stylesheet" href="{css}">
-    </head>
+    return redirect(url_for('all_flowers'))
 
-    <header>
-            НГТУ, ФБ, WEB-программирование, часть 2
-    </header>
-
-    <main>
-        <h1>Список очищен!</h1>
-        <p><a href="/lab2/flowers">Посмотреть все цветы</a></p>
-    </main>
-
-    <footer>
-            ФИО: Булыгина Елизавета Денисовна | Группа: ФБИ-34 | Курс: 3 | Год: 2025
-    </footer>
-
-    </body>
-</html>
-"""
 
 @app.route('/lab2/example')
 def example():
@@ -591,3 +508,8 @@ cats = [
 @app.route("/lab2/cats")
 def show_cats():
     return render_template("cats.html", cats=cats)
+
+@app.route('/lab2/add_flower_example')
+def add_flower_example():
+    flower_list.append({"name": "Пример", "price": 100})
+    return redirect(url_for('all_flowers'))

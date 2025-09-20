@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block main %}
+<h1>Список всех цветов</h1>
+
+<p>Всего цветов: {{ flowers|length }}</p>
+
+<ul class="flower-list">
+    {% for flower in flowers %}
+    <li>
+        {{ loop.index }}. {{ flower.name }} - {{ flower.price }} &#8381;
+        <a href="{{ url_for('delete_flower', flower_id=loop.index0) }}">Удалить</a>
+    </li>
+    {% endfor %}
+</ul>
+
+<form action="{{ url_for('add_flower') }}" method="post">
+    <input type="text" name="name" placeholder="Название цветка" required>
+    <input type="number" name="price" placeholder="Цена" required>
+    <button type="submit">Добавить цветок</button>
+</form>
+
+{% if request.args.get('error') %}
+<script>
+    alert("{{ request.args.get('error') }}");
+</script>
+{% endif %}
+
+<p><a href="{{ url_for('clear_flowers') }}">Удалить все цветы</a></p>
+{% endblock %}
