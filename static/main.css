@@ -9,28 +9,23 @@ body {
     min-height: 100vh; 
 }
 
-footer {
-    background-color: #f7d9d0;
-    color: #4a2f2f;
-    text-align: center;
+header, footer {
+    background: #f7d9d0;
+    color: #250808;
     padding: 15px 0;
-    font-size: 14px;
-    border-top: 1px solid #e0bfbf;
     width: 100%;
-    margin-top: auto; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 header {
-    background-color: #f7d9d0;
-    color: #250808;
-    text-align: center;
-    padding: 20px 0;
     font-size: 20px;
     font-weight: 600;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    width: 100%;
+}
+
+footer {
+    font-size: 14px;
+    border-top: 1px solid #e0bfbf;
+    margin-top: auto;
 }
 
 main {
@@ -110,4 +105,36 @@ p a:hover {
 
 .math-list li::before {
     content: none; 
+}
+
+.books {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 80%;
+    margin: 20px auto;
+    background: #fff8f4;
+    border: 1px solid #f0cfc2;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.books th, .books td {
+    padding: 12px 16px;
+    text-align: left;
+}
+
+.books th {
+    background-color: #a14d4d;
+    color: white;
+    font-weight: 600;
+}
+
+.books tr:not(:last-child) td {
+    border-bottom: 1px solid #f0cfc2;
+}
+
+.books td {
+    background: #fdf2ec;
 }

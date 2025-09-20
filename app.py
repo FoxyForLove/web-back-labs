@@ -562,3 +562,22 @@ def calc_default():
 @app.route('/lab2/calc/<int:a>')
 def calc_single(a):
     return redirect(url_for('calc', a=a, b=1))
+
+books = [
+    {"author": "Донато Карризи", "title": "Девушка в тумане", "genre": "Детектив, триллер", "pages": 416},
+    {"author": "Донато Карризи", "title": "Потерянные девушки Рима", "genre": "Детектив", "pages": 512},
+    {"author": "Донато Карризи", "title": "Дом голосов", "genre": "Триллер, драма", "pages": 384},
+    {"author": "Андреас Грубер", "title": "Смерть приходит по записи", "genre": "Детектив, триллер", "pages": 512},
+    {"author": "Андреас Грубер", "title": "Смерть по подписке", "genre": "Детектив, криминал", "pages": 544},
+    {"author": "Андреас Грубер", "title": "Смерть как ремесло", "genre": "Психологический триллер", "pages": 576},
+    {"author": "Себастьян Фитцек", "title": "Терапия", "genre": "Психологический триллер", "pages": 320},
+    {"author": "Себастьян Фитцек", "title": "Пассажир 23", "genre": "Детектив, триллер", "pages": 352},
+    {"author": "Себастьян Фитцек", "title": "Посылка", "genre": "Психологический триллер", "pages": 368},
+    {"author": "Франк Тилье", "title": "Лес теней", "genre": "Детектив, триллер", "pages": 448},
+    {"author": "Франк Тилье", "title": "Синдром Е", "genre": "Детектив, триллер", "pages": 512},
+    {"author": "Франк Тилье", "title": "Головоломка", "genre": "Психологический триллер", "pages": 416},
+]
+
+@app.route('/lab2/books')
+def show_books():
+    return render_template("books.html", books=books)
