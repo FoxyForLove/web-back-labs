@@ -342,7 +342,6 @@ def cause_error():
     return 1 / 0 
 
 
-
 #Lab 2
 
 @app.route('/lab2/a')
@@ -352,3 +351,12 @@ def a():
 @app.route('/lab2/a/')
 def a2():
     return 'Со слэшем'
+
+flower_list = ('Черная роза','Орхидея','Лотос','Кадупул')
+
+@app.route('/lab2/flowers/<int:flower_id>')
+def flowers(flower_id):
+    if flower_id >= len(flower_list):
+        abort(404)
+    else: 
+        return "Цветок:" + flower_list[flower_id]
