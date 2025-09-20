@@ -340,3 +340,15 @@ def route_418():
 @app.route("/500")
 def cause_error():
     return 1 / 0 
+
+
+
+#Lab 2
+
+@app.route('/lab2/a')
+def a():
+    return 'Без слэша'
+
+@app.route('/lab2/a/')
+def a2():
+    return 'Со слэшем'
