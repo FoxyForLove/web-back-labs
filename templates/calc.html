@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная 2 — Калькулятор{% endblock %}
+
+{% block main %}
+<h1>Результаты операций с числами {{ a }} и {{ b }}</h1>
+<ul class="math-list">
+    <li>Сумма: {{ summ }}</li>
+    <li>Вычитание: {{ diff }}</li>
+    <li>Умножение: {{ prod }}</li>
+    <li>Деление: {{ div }}</li>
+    <li>Степень: {{ sup_display }}</li>
+</ul>
+{% endblock %}

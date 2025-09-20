@@ -71,6 +71,10 @@ header {
 nav {
     margin: 30px auto;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
 }
 
 nav a {
@@ -81,11 +85,14 @@ nav a {
     border-radius: 8px;
     font-size: 18px;
     transition: background-color 0.3s ease;
+    width: 200px; /* фиксированная ширина для единообразия */
+    text-align: center;
 }
 
 nav a:hover {
     background-color: #c77c7c;
 }
+
 
 footer {
     background-color: #f7d9d0;

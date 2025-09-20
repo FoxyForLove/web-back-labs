@@ -24,6 +24,7 @@ def index():
 
         <nav>
             <a href="/lab1">Первая лабораторная</a>
+            <a href="/lab2">Вторая лабораторная</a>
         </nav>
 
         <footer>
@@ -344,6 +345,10 @@ def cause_error():
 
 #Lab 2
 
+@app.route("/lab2/")
+def lab2_home():
+    return render_template("lab2_menu.html")
+
 @app.route('/lab2/a')
 def a():
     return 'Без слэша'
@@ -372,7 +377,7 @@ def all_flowers():
         <main>
             <h1>Список всех цветов</h1>
             <p>Всего цветов: {len(flower_list)}</p>
-            <ul>
+            <ul class="flower-list">
                 {flowers_all}
             </ul>
             <p><a href="/lab2/clear_flowers">Очистить список</a></p>
@@ -494,7 +499,7 @@ def example():
                            course=course,
                            fruits = fruits)
 
-@app.route('/lab2/')
+@app.route('/lab2/template')
 def lab2():
     return render_template('lab2.html')
 
@@ -506,8 +511,7 @@ def filters():
 sys.set_int_max_str_digits(1000000) 
 
 @app.route('/lab2/calc/<int:a>/<int:b>')
-def calc(a,b):
-
+def calc(a, b):
     try:
         summ = a + b
         diff = a - b
@@ -516,44 +520,23 @@ def calc(a,b):
         sup = a ** b
 
         sup_str = str(sup)
-        if len(sup_str) > 20:  
+        if len(sup_str) > 20:
             sup_display = f"{sup_str[:20]}... (всего {len(sup_str)} цифр)"
         else:
             sup_display = sup_str
     except Exception as e:
         return f"Ошибка: {e}"
-    
-    css = url_for("static", filename="main.css")
-    return f"""
-<!doctype html>
-<html>
-    <body>
-    <head>
-            <link rel="stylesheet" href="{css}">
-    </head>
 
-    <header>
-            НГТУ, ФБ, WEB-программирование, часть 2
-    </header>
-
-    <main>
-        <h1>Результаты операций с числами {a} и {b}</h1>
-        <ul class='math-list'>
-            <li>Сумма: {summ}</li>
-            <li>Вычитание: {diff}</li>
-            <li>Умножение: {prod}</li>
-            <li>Деление: {div}</li>
-            <li>Степень: {sup_display}</li>
-        </ul>
-    </main>
-
-    <footer>
-            ФИО: Булыгина Елизавета Денисовна | Группа: ФБИ-34 | Курс: 3 | Год: 2025
-    </footer>
-
-    </body>
-</html>
-"""
+    return render_template(
+        "calc.html",
+        a=a,
+        b=b,
+        summ=summ,
+        diff=diff,
+        prod=prod,
+        div=div,
+        sup_display=sup_display
+    )
 
 @app.route('/lab2/calc/')
 def calc_default():

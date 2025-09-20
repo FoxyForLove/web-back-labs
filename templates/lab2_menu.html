@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная №2{% endblock %}
+
+{% block main %}
+<h1>Лабораторная 2 — Ссылки</h1>
+<ul class="lab2-links">
+    <li><a href="/lab2/flowers">Список всех цветов</a></li>
+    <li><a href="/lab2/add_flower/Пример">Добавить цветок</a></li>
+    <li><a href="/lab2/clear_flowers">Очистить список цветов</a></li>
+    <li><a href="/lab2/flowers/1">Конкретный цветок из списка </a></li>
+    <li><a href="/lab2/calc/">Калькулятор (по умолчанию)</a></li>
+    <li><a href="/lab2/calc/5/10">Калькулятор с числами</a></li>
+    <li><a href="/lab2/books">Список книг</a></li>
+    <li><a href="/lab2/cats">Список котиков</a></li>
+    <li><a href="/lab2/example">Пример</a></li>
+    <li><a href="/lab2/filters">Фильтры текста</a></li>
+    <li><a href="/lab2/template">Шаблоны</a></li>
+    <li><a href="/lab2/a">Без слэша</a></li>
+    <li><a href="/lab2/a/">Со слэшем</a></li>
+</ul>
+{% endblock %}

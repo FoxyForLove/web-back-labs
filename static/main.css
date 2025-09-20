@@ -1,3 +1,4 @@
+/* Общие стили страницы */
 body {
     background-color: #fcefe8; 
     color: #4a2f2f; 
@@ -20,6 +21,7 @@ header, footer {
 header {
     font-size: 20px;
     font-weight: 600;
+    position: relative;
 }
 
 footer {
@@ -40,73 +42,82 @@ main {
     line-height: 1.8;
 }
 
-main ul {
+ul {
     list-style: none;
     padding: 0;
-    margin: 0 auto;
-    max-width: 500px;
-    text-align: left;
+    margin: 0;
 }
 
-main ul li {
-    background: #fdf2ec;
-    margin: 12px 0;
-    padding: 14px 18px;
-    border-radius: 10px;
-    border: 1px solid #f0cfc2;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    transition: transform 0.2s, background-color 0.3s;
-    font-size: 18px;
-    line-height: 1.6;
-}
-
-main ul li:hover {
-    transform: translateX(6px);
-    background-color: #f7d9d0;
-}
-
-main ul li::before {
-  content: "▷🌿";   
-  margin-right: 10px;
-  font-size: 18px;
-}
-
-p a {
-    display: block;
-    width: fit-content;
-    margin: 20px auto;
+/* Список цветов */
+.flower-list li {
+    background-color: #753f3f;
+    color: white;
+    margin: 8px 0;
     padding: 10px 15px;
-    background-color: #a14d4d;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.flower-list li:hover {
+    background-color: #c77c7c;
+    transform: translateX(4px);
+}
+
+/* Список фруктов */
+.fruit-list li {
+    background-color: #753f3f;
+    color: white;
+    margin: 6px 0;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-family: "Courier New", monospace;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.fruit-list li:hover {
+    background-color: #c77c7c;
+    transform: translateX(4px);
+}
+
+/* Список ссылок лабораторной */
+.lab2-links li {
+    margin: 8px 0;
+}
+
+.lab2-links li a {
+    display: block;
+    padding: 10px 15px;
+    background-color: #753f3f;
     color: white;
     text-decoration: none;
     border-radius: 6px;
-    transition: background-color 0.3s ease;
+    font-size: 18px;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
-p a:hover {
-    background-color: #8b3e3e;
+.lab2-links li a:hover {
+    background-color: #c77c7c;
+    transform: translateX(4px);
 }
 
-.math-list {
-    padding: 10px;
-    margin: 15px auto;
-    font-family: "Courier New", monospace;
-    background-color: #fafafa;
-    max-width: 400px;
-}
-
+/* Калькулятор */
 .math-list li {
-    border-bottom: 1px solid #eee;
-    background-color: inherit;
+    background-color: #753f3f;
+    color: white;
+    margin: 6px 0;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-family: "Courier New", monospace;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
-.math-list li::before {
-    content: none; 
+.math-list li:hover {
+    background-color: #c77c7c;
+    transform: translateX(4px);
 }
 
+/* Таблицы книг */
 .books {
     border-collapse: separate;
     border-spacing: 0;
@@ -139,6 +150,7 @@ p a:hover {
     background: #fdf2ec;
 }
 
+/* Список котиков */
 .cat-container {
     display: flex;
     flex-wrap: wrap;
@@ -162,4 +174,40 @@ p a:hover {
     object-fit: cover;
     border-radius: 10px;
     margin-bottom: 10px;
+}
+
+/* Ссылка на главную */
+.home-link {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    background-color: #a14d4d;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.home-link:hover {
+    background-color: #8b3e3e;
+}
+
+/* Кнопки */
+p a {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 10px 0;
+    background-color: #a14d4d;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+p a:hover {
+    background-color: #8b3e3e;
 }
