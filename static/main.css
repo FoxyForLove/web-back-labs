@@ -94,3 +94,20 @@ p a {
 p a:hover {
     background-color: #8b3e3e;
 }
+
+.math-list {
+    padding: 10px;
+    margin: 15px auto;
+    font-family: "Courier New", monospace;
+    background-color: #fafafa;
+    max-width: 400px;
+}
+
+.math-list li {
+    border-bottom: 1px solid #eee;
+    background-color: inherit;
+}
+
+.math-list li::before {
+    content: none; 
+}

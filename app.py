@@ -1,6 +1,7 @@
 from flask import Flask, url_for, request, redirect, abort, render_template, Response
 import datetime
 from werkzeug.exceptions import HTTPException
+import sys
 
 app = Flask(__name__)
 
@@ -497,7 +498,67 @@ def example():
 def lab2():
     return render_template('lab2.html')
 
-@app.route('/lab2/filters')
+@app.route('/lab2/filters') 
 def filters():
     phrase = "О <b>сколько</b> <u>нам</u> <i>открытий</i> чудных..."
     return render_template('filter.html', phrase = phrase)
+
+sys.set_int_max_str_digits(1000000) 
+
+@app.route('/lab2/calc/<int:a>/<int:b>')
+def calc(a,b):
+
+    try:
+        summ = a + b
+        diff = a - b
+        prod = a * b
+        div = a / b if b != 0 else "∞"
+        sup = a ** b
+
+        sup_str = str(sup)
+        if len(sup_str) > 20:  
+            sup_display = f"{sup_str[:20]}... (всего {len(sup_str)} цифр)"
+        else:
+            sup_display = sup_str
+    except Exception as e:
+        return f"Ошибка: {e}"
+    
+    css = url_for("static", filename="main.css")
+    return f"""
+<!doctype html>
+<html>
+    <body>
+    <head>
+            <link rel="stylesheet" href="{css}">
+    </head>
+
+    <header>
+            НГТУ, ФБ, WEB-программирование, часть 2
+    </header>
+
+    <main>
+        <h1>Результаты операций с числами {a} и {b}</h1>
+        <ul class='math-list'>
+            <li>Сумма: {summ}</li>
+            <li>Вычитание: {diff}</li>
+            <li>Умножение: {prod}</li>
+            <li>Деление: {div}</li>
+            <li>Степень: {sup_display}</li>
+        </ul>
+    </main>
+
+    <footer>
+            ФИО: Булыгина Елизавета Денисовна | Группа: ФБИ-34 | Курс: 3 | Год: 2025
+    </footer>
+
+    </body>
+</html>
+"""
+
+@app.route('/lab2/calc/')
+def calc_default():
+    return redirect(url_for('calc', a=1, b=1))
+
+@app.route('/lab2/calc/<int:a>')
+def calc_single(a):
+    return redirect(url_for('calc', a=a, b=1))
