@@ -74,13 +74,23 @@ main ul li:hover {
 }
 
 main ul li::before {
-    content: "🍎";
-    margin-right: 10px;
-    font-size: 20px;
+  content: "▷🌿";   
+  margin-right: 10px;
+  font-size: 18px;
 }
 
-main ul li:nth-child(2)::before { content: "🍑"; }
-main ul li:nth-child(3)::before { content: "🍋"; }
-main ul li:nth-child(4)::before { content: "🍊"; }
-main ul li:nth-child(5)::before { content: "🍈"; }
+p a {
+    display: block;
+    width: fit-content;
+    margin: 20px auto;
+    padding: 10px 15px;
+    background-color: #a14d4d;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
 
+p a:hover {
+    background-color: #8b3e3e;
+}
