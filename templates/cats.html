@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная 2 — Котики{% endblock %}
+
+{% block main %}
+<h1>Список котиков</h1>
+<div class="cat-container">
+    {% for cat in cats %}
+    <div class="cat-card">
+        <img src="{{ url_for('static', filename=cat.img) }}" alt="{{ cat.name }}">
+        <h3>{{ cat.name }}</h3>
+        <p>{{ cat.desc }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

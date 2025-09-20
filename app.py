@@ -581,3 +581,30 @@ books = [
 @app.route('/lab2/books')
 def show_books():
     return render_template("books.html", books=books)
+
+cats = [
+    {"name": "Сиамский", "desc": "Элегантный, стройный, голубоглазый", "img": "siamese.jpg"},
+    {"name": "Мейн-кун", "desc": "Огромный пушистый, добродушный", "img": "maine_coon.jpg"},
+    {"name": "Британский", "desc": "Короткая шерсть, плюшевый вид", "img": "british.jpg"},
+    {"name": "Персидский", "desc": "Длинная шерсть, спокойный характер", "img": "persian.jpg"},
+    {"name": "Бенгальский", "desc": "Пятнистый, активный", "img": "bengal.jpg"},
+    {"name": "Русская голубая", "desc": "Серая шерсть, зелёные глаза", "img": "russian_blue.jpg"},
+    {"name": "Сфинкс", "desc": "Без шерсти, дружелюбный", "img": "sphinx.jpg"},
+    {"name": "Сноу-шу", "desc": "Мягкая шерсть, белый с тёмными пятнами", "img": "snow_shoe.jpg"},
+    {"name": "Экзотическая короткошерстная", "desc": "Плюшевый котик, спокойный", "img": "exotic.jpg"},
+    {"name": "Абиссинский", "desc": "Активный, рыжевато-коричневый", "img": "abyssinian.jpg"},
+    {"name": "Балинезийский", "desc": "Сиамская порода с длинной шерстью", "img": "balinese.jpg"},
+    {"name": "Бурманский", "desc": "Коренастый, дружелюбный", "img": "burmese.jpg"},
+    {"name": "Тойгер", "desc": "Похож на тигра", "img": "toyger.jpg"},
+    {"name": "Селкирк рекс", "desc": "Кудрявая шерсть", "img": "selkirk.jpg"},
+    {"name": "Сибирский", "desc": "Пушистый, выносливый, добродушный", "img": "siberian.jpg"},
+    {"name": "Ориентальная", "desc": "Стройная, грациозная", "img": "oriental.jpg"},
+    {"name": "Рэгдолл", "desc": "Очень крупный, мягкий характер", "img": "ragdoll.jpg"},
+    {"name": "Саванне", "desc": "Пятнистый, высокий рост", "img": "savannah.jpg"},
+    {"name": "Тонкинский", "desc": "Средний размер, активный", "img": "tonkinese.jpg"},
+    {"name": "Хайленд фолд", "desc": "Сложенные ушки, пушистый", "img": "highland_fold.jpg"},
+]
+
+@app.route("/lab2/cats")
+def show_cats():
+    return render_template("cats.html", cats=cats)
