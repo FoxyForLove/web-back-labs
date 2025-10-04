@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block lab %}Лабораторная работа №3{% endblock %}
+
+{% block main %}
+    <h1>Cookies</h1>
+    <form>
+        <div>
+            <lable class="label" for="color">Выберите цвет текста:</lable>
+            <input type="color" id="color" name="color" value="{{ color or '' }}">
+        </div>
+
+        <div>
+            <label for="bgcolor">Цвет фона:</label>
+            <input type="color" id="bgcolor" name="bgcolor" value="{{ bgcolor or '' }}">
+        </div>
+
+        <div>
+            <label for="fontsize">Размер шрифта:</label>
+            <input type="number" id="fontsize" name="fontsize" min="12" max="48" value="{{ fontsize or 18 }}">
+        </div>
+
+        <div>
+            <label for="style">Стиль текста:</label>
+            <select id="style" name="style">
+            <option value="">Обычный</option>
+            <option value="bold" {% if style == 'bold' %}selected{% endif %}>Жирный</option>
+            <option value="italic" {% if style == 'italic' %}selected{% endif %}>Курсив</option>
+            <option value="underline" {% if style == 'underline' %}selected{% endif %}>Подчёркнутый</option>
+            </select>
+        </div>
+        <div>
+            <button type="submit"> ОК </button>
+        </div>
+    </form>
+</form>
+
+<!-- Превью текста -->
+<div style="
+    margin-top: 15px;
+    font-size: {{ fontsize or 18 }}px;
+">
+    Это пример текста с выбранным размером: {{ fontsize or 18 }}px
+</div>
+
+{% endblock %}

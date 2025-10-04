@@ -9,6 +9,30 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
 </head>
+<style>
+    body {
+        {% if request.cookies.get('color') %}
+        color: {{ request.cookies.get('color') }};
+        {% endif %}
+
+        {% if request.cookies.get('bgcolor') %}
+        background-color: {{ request.cookies.get('bgcolor') }};
+        {% endif %}
+
+        {% if request.cookies.get('fontsize') %}
+        font-size: {{ request.cookies.get('fontsize') }}px;
+        {% endif %}
+
+        {% if request.cookies.get('style') == 'bold' %}
+        font-weight: bold;
+        {% elif request.cookies.get('style') == 'italic' %}
+        font-style: italic;
+        {% elif request.cookies.get('style') == 'underline' %}
+        text-decoration: underline;
+        {% endif %}
+    }
+</style>
+
 <body>
      <header>
             WEB-программирование, часть 2. {{ self.lab() }}
