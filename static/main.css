@@ -258,3 +258,17 @@ form button:hover {
     background-color: #a14d4d;
     transform: translateX(2px);
 }
+
+.error {
+    display: none; 
+    color: #c72c2c;         
+    background-color: #fce8e6; 
+    border: 1px solid #c77c7c;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 16px;
+    display: inline-block;
+    margin-top: 4px;
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(199, 124, 124, 0.3); 
+}

@@ -4,7 +4,7 @@
 
 {% block main %}
 
-    {% if user %}
+    {% if user and not errors %}
 
     <h1>Привет, {{ user }}!</h1>
     <h2>Добро пожаловать на наш сайт!</h2>
@@ -20,22 +20,24 @@
 
     <h1>Пользователь</h1>
 
-    <form>
+    <form novalidate>
         <label> Ваше имя: </label>
         <div>
-            <input type="text" placeholder="Как вас зовут?" name="user">
+            <input type="text" placeholder="Как вас зовут?" name="user" value="{{ user or ''}}">
+                <span class="error">{{ errors.user }}</span>
         </div>
 
-        <label> Ваше возраст: </label>
+        <label> Ваш возраст: </label>
         <div>
-            <input type="number" placeholder="Сколько вам лет?" name="age">
+            <input type="number" placeholder="Сколько вам лет?" name="age" value="{{ age or ''}}">
+                <span class="error">{{ errors.age }}</span>
         </div>
 
-        <label> Ваше пол: </label>
+        <label> Ваш пол: </label>
         <div>
             <select name="sex">
-                <option value="female"> Женищна </option>
-                <option value="male"> Мужчина </option>
+                <option value="female" {{ sex == 'female' and 'selected' }}> Женищна </option>
+                <option value="male" {{ sex == 'male' and 'selected' }}> Мужчина </option>
             </select>
         </div>
 
