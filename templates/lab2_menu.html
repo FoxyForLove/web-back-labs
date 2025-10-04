@@ -5,10 +5,10 @@
 {% block main %}
 <h1>Лабораторная 2 — Ссылки</h1>
 <ul class="lab2-links">
-    <li><a href="{{ url_for('all_flowers') }}">Список всех цветов</a></li>
-    <li><a href="{{ url_for('flower_detail', flower_id=0) }}">Первый цветок</a></li>
-    <li><a href="{{ url_for('add_flower_example') }}">Добавить цветок-пример</a></li>
-    <li><a href="{{ url_for('clear_flowers') }}">Очистить список цветов</a></li>
+    <li><a href="{{ url_for('lab2.all_flowers') }}">Список всех цветов</a></li>
+    <li><a href="{{ url_for('lab2.flower_detail', flower_id=0) }}">Первый цветок</a></li>
+    <li><a href="{{ url_for('lab2.add_flower_example') }}">Добавить цветок-пример</a></li>
+    <li><a href="{{ url_for('lab2.clear_flowers') }}">Очистить список цветов</a></li>
     <li><a href="/lab2/calc/">Калькулятор (по умолчанию)</a></li>
     <li><a href="/lab2/calc/5/10">Калькулятор с числами</a></li>
     <li><a href="/lab2/books">Список книг</a></li>
