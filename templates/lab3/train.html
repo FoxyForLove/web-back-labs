@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block lab %}Лабораторная работа №3{% endblock %}
+
+{% block main %}
+<h1>Форма железнодорожного билета</h1>
+
+<form action="/lab3/ticket">
+
+    <label>ФИО пассажира:</label>
+    <input type="text" name="name" required><br>
+
+    <label>Возраст:</label>
+    <input type="number" name="age" min="1" max="120" required><br>
+
+    <label>Дата поездки:</label> 
+    <input type="date" name="date" required><br>
+
+    <label>Пункт выезда:</label>
+    <input type="text" name="from_city" required><br>
+
+    <label>Пункт назначения:</label>
+    <input type="text" name="to" required><br>
+
+    <label>Полка:</label>
+    <select name="shelf" required>
+        <option value="">--Выберите--</option>
+        <option value="нижняя">Нижняя</option>
+        <option value="верхняя">Верхняя</option>
+        <option value="верхняя боковая">Верхняя боковая</option>
+        <option value="нижняя боковая">Нижняя боковая</option>
+    </select><br>
+
+    <label>С бельём:</label>
+    <input type="checkbox" name="bedding"><br>
+
+    <label>С багажом:</label>
+    <input type="checkbox" name="luggage"><br>
+
+    <label>Нужна страховка:</label>
+    <input type="checkbox" name="insurance"><br><br>
+
+    <button type="submit">Оформить билет</button>
+
+</form>
+{% endblock %}
+
+

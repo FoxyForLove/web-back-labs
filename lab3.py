@@ -72,6 +72,7 @@ def success():
     price = request.args.get('price')
     return render_template('lab3/success.html', price=price)
 
+
 @lab3.route('/lab3/settings')
 def settings():
     color = request.args.get('color')
@@ -101,3 +102,36 @@ def settings():
                            bgcolor=bgcolor,
                            fontsize=fontsize,
                            style=style)
+
+
+@lab3.route('/lab3/train')
+def train():
+    return render_template('lab3/train.html')
+
+
+@lab3.route('/lab3/ticket')
+def ticket():
+    name = request.args.get('name')
+    shelf = request.args.get('shelf')
+    bedding = request.args.get('bedding') == 'on'
+    luggage = request.args.get('luggage') == 'on'
+    age = int(request.args.get('age'))
+    from_city = request.args.get('from_city')
+    to_city = request.args.get('to')
+    date = request.args.get('date')
+    insurance = request.args.get('insurance') == 'on'
+
+    price = 700 if age < 18 else 1000
+    if shelf in ['нижняя', 'нижняя боковая']:
+        price += 100
+    if bedding:
+        price += 75
+    if luggage:
+        price += 250
+    if insurance:
+        price += 150
+
+    return render_template('lab3/ticket.html', name=name, age=age, shelf=shelf,
+                        bedding=bedding, luggage=luggage, from_city=from_city, to=to_city,
+                        date=date, insurance=insurance, price=price)
+

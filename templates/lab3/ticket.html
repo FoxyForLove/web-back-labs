@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block lab %}Лабораторная работа №3{% endblock %}
+
+{% block main %}
+<div class="ticket-card">
+    <h1 class="ticket-title">Ваш билет</h1>
+    <div class="ticket-body">
+        <ul class="ticket-details">
+            <li><strong>ФИО:</strong> {{ name }}</li>
+            <li><strong>Возраст:</strong> {{ age }} {% if age < 18 %} — <span class="child-label">Детский билет</span>{% endif %}</li>
+            <li><strong>Дата поездки:</strong> {{ date }}</li>
+            <li><strong>Пункт выезда:</strong> {{ from }}</li>
+            <li><strong>Пункт назначения:</strong> {{ to }}</li>
+            <li><strong>Полка:</strong> {{ shelf }}</li>
+            <li><strong>С бельём:</strong> {{ 'Да' if bedding else 'Нет' }}</li>
+            <li><strong>С багажом:</strong> {{ 'Да' if luggage else 'Нет' }}</li>
+            <li><strong>Страховка:</strong> {{ 'Да' if insurance else 'Нет' }}</li>
+        </ul>
+        <div class="ticket-price">
+            <strong>Итоговая стоимость:</strong> <span>{{ price }} руб.</span>
+        </div>
+        <p><a href="/lab3/train">Заполнить заново</a></p>
+    </div>
+</div>
+{% endblock %}
