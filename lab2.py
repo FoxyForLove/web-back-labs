@@ -7,7 +7,7 @@ lab2 = Blueprint('lab2',__name__)
 
 @lab2.route("/lab2/")
 def lab2_home():
-    return render_template("lab2_menu.html")
+    return render_template("lab2/lab2_menu.html")
 
 
 @lab2.route('/lab2/a')
@@ -30,7 +30,7 @@ flower_list = [
 
 @lab2.route('/lab2/flowers', endpoint ='all_flowers')
 def all_flowers():
-    return render_template('flowers.html', flowers=flower_list)
+    return render_template('lab2/flowers.html', flowers=flower_list)
 
 
 @lab2.route('/lab2/flowers/<int:flower_id>')
@@ -38,7 +38,7 @@ def flower_detail(flower_id):
     if flower_id >= len(flower_list):
         abort(404)
     flower = flower_list[flower_id]
-    return render_template('flower_detail.html', flower=flower, flower_id=flower_id)
+    return render_template('lab2/flower_detail.html', flower=flower, flower_id=flower_id)
 
 
 @lab2.route('/lab2/add_flower', methods=['POST'])
@@ -77,7 +77,7 @@ def example():
     {"name": "Мандарины", "price": 130},
     {"name": "Помело", "price": 270}
     ]
-    return render_template('example.html', 
+    return render_template('lab2/example.html', 
                            name=name, 
                            lab_num=lab_num, 
                            group=group, 
@@ -87,13 +87,13 @@ def example():
 
 @lab2.route('/lab2/template')
 def lab():
-    return render_template('lab2.html')
+    return render_template('lab2/lab2.html')
 
 
 @lab2.route('/lab2/filters') 
 def filters():
     phrase = "О <b>сколько</b> <u>нам</u> <i>открытий</i> чудных..."
-    return render_template('filter.html', phrase = phrase)
+    return render_template('lab2/filter.html', phrase = phrase)
 
 sys.set_int_max_str_digits(1000000) 
 
@@ -115,7 +115,7 @@ def calc(a, b):
         return f"Ошибка: {e}"
 
     return render_template(
-        "calc.html",
+        "lab2/calc.html",
         a=a,
         b=b,
         summ=summ,
@@ -154,36 +154,36 @@ books = [
 
 @lab2.route('/lab2/books')
 def show_books():
-    return render_template("books.html", books=books)
+    return render_template("lab2/books.html", books=books)
 
 
 cats = [
-    {"name": "Сиамский", "desc": "Элегантный, стройный, голубоглазый", "img": "siamese.jpg"},
-    {"name": "Мейн-кун", "desc": "Огромный пушистый, добродушный", "img": "maine_coon.jpg"},
-    {"name": "Британский", "desc": "Короткая шерсть, плюшевый вид", "img": "british.jpg"},
-    {"name": "Персидский", "desc": "Длинная шерсть, спокойный характер", "img": "persian.jpg"},
-    {"name": "Бенгальский", "desc": "Пятнистый, активный", "img": "bengal.jpg"},
-    {"name": "Русская голубая", "desc": "Серая шерсть, зелёные глаза", "img": "russian_blue.jpg"},
-    {"name": "Сфинкс", "desc": "Без шерсти, дружелюбный", "img": "sphinx.jpg"},
-    {"name": "Сноу-шу", "desc": "Мягкая шерсть, белый с тёмными пятнами", "img": "snow_shoe.jpg"},
-    {"name": "Экзотическая короткошерстная", "desc": "Плюшевый котик, спокойный", "img": "exotic.jpg"},
-    {"name": "Абиссинский", "desc": "Активный, рыжевато-коричневый", "img": "abyssinian.jpg"},
-    {"name": "Балинезийский", "desc": "Сиамская порода с длинной шерстью", "img": "balinese.jpg"},
-    {"name": "Бурманский", "desc": "Коренастый, дружелюбный", "img": "burmese.jpg"},
-    {"name": "Тойгер", "desc": "Похож на тигра", "img": "toyger.jpg"},
-    {"name": "Селкирк рекс", "desc": "Кудрявая шерсть", "img": "selkirk.jpg"},
-    {"name": "Сибирский", "desc": "Пушистый, выносливый, добродушный", "img": "siberian.jpg"},
-    {"name": "Ориентальная", "desc": "Стройная, грациозная", "img": "oriental.jpg"},
-    {"name": "Рэгдолл", "desc": "Очень крупный, мягкий характер", "img": "ragdoll.jpg"},
-    {"name": "Саванне", "desc": "Пятнистый, высокий рост", "img": "savannah.jpg"},
-    {"name": "Тонкинский", "desc": "Средний размер, активный", "img": "tonkinese.jpg"},
-    {"name": "Хайленд фолд", "desc": "Сложенные ушки, пушистый", "img": "highland_fold.jpg"},
+    {"name": "Сиамский", "desc": "Элегантный, стройный, голубоглазый", "img": "lab2/siamese.jpg"},
+    {"name": "Мейн-кун", "desc": "Огромный пушистый, добродушный", "img": "lab2/maine_coon.jpg"},
+    {"name": "Британский", "desc": "Короткая шерсть, плюшевый вид", "img": "lab2/british.jpg"},
+    {"name": "Персидский", "desc": "Длинная шерсть, спокойный характер", "img": "lab2/persian.jpg"},
+    {"name": "Бенгальский", "desc": "Пятнистый, активный", "img": "lab2/bengal.jpg"},
+    {"name": "Русская голубая", "desc": "Серая шерсть, зелёные глаза", "img": "lab2/russian_blue.jpg"},
+    {"name": "Сфинкс", "desc": "Без шерсти, дружелюбный", "img": "lab2/sphinx.jpg"},
+    {"name": "Сноу-шу", "desc": "Мягкая шерсть, белый с тёмными пятнами", "img": "lab2/snow_shoe.jpg"},
+    {"name": "Экзотическая короткошерстная", "desc": "Плюшевый котик, спокойный", "img": "lab2/exotic.jpg"},
+    {"name": "Абиссинский", "desc": "Активный, рыжевато-коричневый", "img": "lab2/abyssinian.jpg"},
+    {"name": "Балинезийский", "desc": "Сиамская порода с длинной шерстью", "img": "lab2/balinese.jpg"},
+    {"name": "Бурманский", "desc": "Коренастый, дружелюбный", "img": "lab2/burmese.jpg"},
+    {"name": "Тойгер", "desc": "Похож на тигра", "img": "lab2/toyger.jpg"},
+    {"name": "Селкирк рекс", "desc": "Кудрявая шерсть", "img": "lab2/selkirk.jpg"},
+    {"name": "Сибирский", "desc": "Пушистый, выносливый, добродушный", "img": "lab2/siberian.jpg"},
+    {"name": "Ориентальная", "desc": "Стройная, грациозная", "img": "lab2/oriental.jpg"},
+    {"name": "Рэгдолл", "desc": "Очень крупный, мягкий характер", "img": "lab2/ragdoll.jpg"},
+    {"name": "Саванне", "desc": "Пятнистый, высокий рост", "img": "lab2/savannah.jpg"},
+    {"name": "Тонкинский", "desc": "Средний размер, активный", "img": "lab2/tonkinese.jpg"},
+    {"name": "Хайленд фолд", "desc": "Сложенные ушки, пушистый", "img": "lab2/highland_fold.jpg"},
 ]
 
 
 @lab2.route("/lab2/cats")
 def show_cats():
-    return render_template("cats.html", cats=cats)
+    return render_template("lab2/cats.html", cats=cats)
 
 
 @lab2.route('/lab2/add_flower_example')

@@ -1,4 +1,4 @@
-from flask import Blueprint, url_for, request, redirect, abort, Response
+from flask import Blueprint, url_for, request, redirect, Response
 import datetime
 from werkzeug.exceptions import HTTPException
 import sys
@@ -9,7 +9,7 @@ access_log = []
 
 @lab1.route('/lab1')
 def lab():
-    css= url_for("static", filename="lab1.css")
+    css= url_for("static", filename="lab1/lab1.css")
     return '''
 <!doctype html>
     <head>
@@ -88,8 +88,8 @@ def author():
 
 @lab1.route('/lab1/image')
 def image():
-    path = url_for("static",filename="kitty.png")
-    css = url_for("static",filename="lab1.css")
+    path = url_for("static",filename="lab1/kitty.png")
+    css = url_for("static",filename="lab1/lab1.css")
     return '''
 <!doctype html>
 <html> 
@@ -121,7 +121,7 @@ def counter():
     time = datetime.datetime.today()
     url = request.url
     client_ip = request.remote_addr 
-    css = url_for("static",filename="lab1.css")
+    css = url_for("static",filename="lab1/lab1.css")
 
     return '''
 <!doctype html>
@@ -152,7 +152,7 @@ def counter():
 def clean_counter():
     global count
     count = 0
-    css = url_for("static",filename="lab1.css")
+    css = url_for("static",filename="lab1/lab1.css")
     return '''
 <!doctype html>
 <html> 
@@ -178,7 +178,7 @@ def info():
 
 @lab1.route('/lab1/created')
 def created():
-    css = url_for("static",filename="lab1.css")
+    css = url_for("static",filename="lab1/lab1.css")
     return '''
 <!doctype html>
 <html> 

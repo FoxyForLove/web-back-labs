@@ -17,7 +17,7 @@ app.register_blueprint(lab3)
 @app.route('/')
 @app.route('/index')
 def index():
-    css= url_for("static", filename="lab1.css")
+    css= url_for("static", filename="lab1/lab1.css")
     return '''
 <!doctype html>
     <head>
@@ -45,8 +45,8 @@ def index():
 
 @app.errorhandler(404)
 def not_found(err):
-    path2 = url_for("static", filename="kitty2.jpg")
-    css = url_for("static", filename="lab1.css")
+    path2 = url_for("static", filename="lab1/kitty2.jpg")
+    css = url_for("static", filename="lab1/lab1.css")
     ip = request.remote_addr
     now = datetime.datetime.now()
     url = request.url
