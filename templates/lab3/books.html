@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block lab %}Лабораторная работа №3{% endblock %}
+
+{% block main %}
+    <h1>Каталог книг</h1>
+
+    <form action="/lab3/books">
+        <label>Мин. цена:</label>
+        <input type="number" name="min_price" placeholder="{{ min_possible }}" value="{{ min_price or '' }}">
+        <label>Макс. цена:</label>
+        <input type="number" name="max_price" placeholder="{{ max_possible }}" value="{{ max_price or '' }}">
+        <div class="button-row">
+        <button type="submit">Искать</button>
+        <button formaction="/lab3/books/reset" formmethod="get">Сброс</button>
+    </div>
+
+    </form>
+    {% if show_results %}
+        {% if count == 0 %}
+            <p>Не найдено ни одной книги.</p>
+        {% else %}
+            <p>Найдено книг: {{ count }}</p>
+            <ul class="book-list">
+                {% for book in books %}
+                <li class="book-card">
+                    <h3>{{ book.title }}</h3>
+                    <p><strong>Автор:</strong> {{ book.author }}</p>
+                    <p><strong>Жанр:</strong> {{ book.genre }}</p>
+                    <p><strong>Страниц:</strong> {{ book.pages }}</p>
+                    <p><strong>Издательство:</strong> {{ book.publisher }}</p>
+                    <p><strong>Цена:</strong> {{ book.price }} руб.</p>
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endif %}
+{% endblock %}

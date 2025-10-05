@@ -87,7 +87,7 @@ def not_found(err):
 
 @app.errorhandler(500)
 def internal_server_error(err):
-    css = url_for("static", filename="lab1.css")
+    css = url_for("static", filename="lab1/lab1.css")
     return '''
 <!doctype html>
     <head>

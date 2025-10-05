@@ -480,3 +480,24 @@ form a[href^="/lab3/"]:hover {
 .cookie-clear-form {
     margin-top: 20px;
 }
+
+
+.book-list {
+    list-style: none;
+    padding: 0;
+    margin: 30px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.book-card {
+    background-color: #fff8f4;
+    border: 1px solid #f0cfc2;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.6;
+}
