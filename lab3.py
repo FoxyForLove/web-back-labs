@@ -104,6 +104,16 @@ def settings():
                            style=style)
 
 
+@lab3.route('/lab3/clear-cookies')
+def clear_cookies():
+    resp = make_response(redirect('/lab3/settings'))
+    resp.delete_cookie('color')
+    resp.delete_cookie('bgcolor')
+    resp.delete_cookie('fontsize')
+    resp.delete_cookie('style')
+    return resp
+
+
 @lab3.route('/lab3/train')
 def train():
     return render_template('lab3/train.html')

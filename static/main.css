@@ -477,4 +477,6 @@ form a[href^="/lab3/"]:hover {
     font-weight: 600;
 }
 
-
+.cookie-clear-form {
+    margin-top: 20px;
+}

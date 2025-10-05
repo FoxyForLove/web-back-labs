@@ -31,15 +31,17 @@
         </div>
         <div>
             <button type="submit"> ОК </button>
-        </div>
+        </div> 
     </form>
-</form>
 
-<div style="
-    margin-top: 15px;
-    font-size: {{ fontsize or 18 }}px;
-">
-    Это пример текста с выбранным размером: {{ fontsize or 18 }}px
-</div>
+    <form action="/lab3/clear-cookies" class="cookie-clear-form">
+        <button type="submit">Очистить все cookies</button>
+    </form> 
 
+    <div style="
+        margin-top: 15px;
+        font-size: {{ fontsize or 18 }}px;
+    ">
+        Это пример текста с выбранным размером: {{ fontsize or 18 }}px
+    </div>
 {% endblock %}
