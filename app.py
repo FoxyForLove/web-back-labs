@@ -11,6 +11,8 @@ access_log = []
 
 app = Flask(__name__)
 
+app.secret_key = 'Секретно-секретный ключ'
+
 app.register_blueprint(lab1)
 app.register_blueprint(lab2)
 app.register_blueprint(lab3)
