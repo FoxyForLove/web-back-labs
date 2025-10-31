@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block lab %}Суммирование{% endblock %}
+
+{% block main %}
+    <h1>Суммирование</h1>
+    {% if error %}
+        {{ error }}
+        <p><a href="/lab4/sum-form">Назад</a></p>
+    {% else %}
+        <p>{{ x1 }} + {{ x2 }} = {{ result }}</p>
+        <p><a href="/lab4/sum-form">Назад</a></p>
+    {% endif %}
+{% endblock %}
