@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block lab %}Лабораторная работа №4{% endblock %}
+
+{% block main %}
+    <style>
+        .fridge-form div { margin-bottom: 10px; }
+        .fridge-form input[type="text"] { width: 120px; padding: 5px; }
+        .result { margin-top: 15px; font-weight: bold; }
+        .snow { color: #0073e6; font-size: 24px; margin-left: 6px; }
+    </style>
+
+    <h1>Холодильник</h1>
+    <p>Установите температуру холодильника (°C)</p>
+
+    <form class="fridge-form" method="post">
+        <div>
+            <label for="temperature">Температура: </label>
+            <input type="number" id="temperature" name="temperature" value="{{ temperature|e }}">
+            <button type="submit">Установить</button>
+            <button type="submit" name="reset">Сброс</button>
+        </div>
+    </form>
+
+    {% if result %}
+        <div class="result">
+            {% if result.startswith('ошибка') or result.startswith('не удалось') or result.startswith('ошибка:') %}
+                <span class="error"> {{ result }}</span>
+            {% else %}
+                <span>{{ result }}</span>
+                {% if snowflakes %}
+                    <span class="snow">
+                        {% for i in range(snowflakes) %}❄{% endfor %}
+                    </span>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}

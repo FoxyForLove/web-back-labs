@@ -165,3 +165,42 @@ def login():
 def logout():
     session.pop('login',None)
     return redirect('/lab4/login')
+
+
+@lab4.route("/lab4/fridge", methods = ['GET','POST'])
+def fridge():
+    if request.method == 'GET':
+        return render_template("lab4/fridge.html", result='', temperature='')
+
+    temp_raw = request.form.get('temperature', '')
+
+    if 'reset' in request.form:
+        return render_template("lab4/fridge.html", result='', temperature='')
+    
+    if temp_raw == '':
+        result = 'Ошибка: не задана температура'
+        return render_template("lab4/fridge.html", result=result, temperature='')
+
+    try:
+        temp = int(temp_raw)
+    except ValueError:
+        result = 'Ошибка: неверный формат температуры'
+        return render_template("lab4/fridge.html", result=result, temperature=temp_raw)
+
+    if temp < -12:
+        result = 'Не удалось установить температуру — слишком низкое значение'
+        return render_template("lab4/fridge.html", result=result, temperature=temp)
+    if temp > -1:
+        result = 'Не удалось установить температуру — слишком высокое значение'
+        return render_template("lab4/fridge.html", result=result, temperature=temp)
+
+    snowflakes = 0
+    if -12 <= temp <= -9:
+        snowflakes = 3
+    elif -8 <= temp <= -5:
+        snowflakes = 2
+    elif -4 <= temp <= -1:
+        snowflakes = 1
+
+    result = f'Установлена температура: {temp}°С'
+    return render_template("lab4/fridge.html", result=result, temperature=temp, snowflakes=snowflakes)
