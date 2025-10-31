@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block lab %}Лабораторная работа №4{% endblock %}
+
+{% block main %}
+    <style>
+        div {
+            margin: 10px;
+        }
+    </style>
+    <h1>Редактирование профиля</h1>
+    <form method="post">
+        <div>Логин: <input type="text" name="login" value="{{ login|e }}"></div>
+        <div>Имя: <input type="text" name="name" value="{{ name|e }}"></div>
+        <div>Новый пароль: <input type="password" name="password"></div>
+        <div>Подтвердите пароль: <input type="password" name="password2"></div>
+
+        <div>Если не хотите менять пароль — оставьте поля пустыми.</div>
+
+        {% if error %}
+            <div style="color:red">
+                {{ error }}
+            </div>
+        {% endif %}
+        <div>
+            <button type="submit">Сохранить</button> 
+             <button type="button" onclick="location.href='/lab4/users'"> Отмена</button>
+        </div>
+    </form>
+{% endblock %}

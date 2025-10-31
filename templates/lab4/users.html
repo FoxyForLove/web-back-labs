@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block lab %}Лабораторная работа №4{% endblock %}
+
+{% block main %}
+    <style>
+        table {
+            margin: 0 auto;
+        }
+        form {
+            margin: 10px;
+        }
+    </style>
+
+    <h1>Пользователи</h1>
+    <p>Вы: <strong>{{ current }}</strong></p>
+
+    <table border="1" cellpadding="4">
+    <tr>
+        <th>Имя</th>
+        <th>Логин</th>
+    </tr>
+    {% for user in users %}
+        <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.login }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+
+    <form method="get" action="/lab4/users/edit"><button type="submit">Редактировать</button></form>
+    <form method="post" action="/lab4/users/delete" onsubmit="return confirm('Удалить себя?');">
+    <button type="submit">Удалить себя</button>
+    </form>
+{% endblock %}
