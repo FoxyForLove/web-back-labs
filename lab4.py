@@ -204,3 +204,60 @@ def fridge():
 
     result = f'Установлена температура: {temp}°С'
     return render_template("lab4/fridge.html", result=result, temperature=temp, snowflakes=snowflakes)
+
+PRICES = {
+        'Ячмень': 12000,
+        'Овёс': 8500,
+        'Пшеница': 9000,
+        'Рожь': 15000
+    }
+
+
+@lab4.route("/lab4/grain_order", methods=['GET', 'POST'])
+def grain_order():
+
+    if request.method == 'GET':
+        return render_template("lab4/grain_order.html", result='', grain='', weight='')
+
+    if 'reset' in request.form:
+        return render_template("lab4/grain_order.html", result='', grain='', weight='')
+
+    grain = request.form.get('grain', '')
+    weight_raw = request.form.get('weight', '')
+
+    if weight_raw == '':
+        result = 'Ошибка: не указан вес'
+        return render_template("lab4/grain_order.html", result=result, grain=grain, weight='')
+
+    weight = float(weight_raw)
+
+    if weight <= 0:
+        result = 'Ошибка: вес должен быть больше 0'
+        return render_template("lab4/grain_order.html", result=result, grain=grain, weight=weight_raw)
+
+    if weight > 100:
+        result = 'Ошибка: такого объёма сейчас нет в наличии'
+        return render_template("lab4/grain_order.html", result=result, grain=grain, weight=weight_raw)
+
+    price_per_t = PRICES[grain]
+    total = weight * price_per_t
+    discount = 0.0
+    discount_msg = ''
+
+    if weight > 10:
+        discount = 0.10  
+        discount_amount = total * discount
+        total_after = total - discount_amount
+        discount_msg = f'Применена скидка за большой объём: {int(discount*100)}% ({int(discount_amount)} руб)'
+        total = total_after
+    else:
+        discount_amount = 0
+
+    total_int = int(round(total))
+
+    result = (f'Заказ успешно сформирован. Вы заказали {grain}. Вес: {weight} т. '
+              f'Сумма к оплате: {total_int} руб.')
+    if discount_msg:
+        result = result + ' ' + discount_msg
+
+    return render_template("lab4/grain_order.html", result=result, grain=grain, weight=weight)

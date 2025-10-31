@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block lab %}Лабораторная работа №4{% endblock %}
+
+{% block main %}
+<style>
+  .order-form div { margin-bottom: 10px; }
+  .order-form input[type="number"], .order-form select { padding: 5px; }
+  .result { margin-top: 15px; font-weight: bold; }
+  .error { color: #b30000; font-weight: bold; font-style: italic; }
+</style>
+
+<h1>Заказ зерна</h1>
+
+<form class="order-form" method="post">
+  <div>
+    <label for="grain">Зерно: </label>
+    <select id="grain" name="grain">
+      <option value="">-- Выберите --</option>
+      <option value="Ячмень" {% if grain == 'Ячмень' %}selected{% endif %}>Ячмень</option>
+      <option value="Овёс" {% if grain == 'Овёс' %}selected{% endif %}>Овёс</option>
+      <option value="Пшеница" {% if grain == 'Пшеница' %}selected{% endif %}>Пшеница</option>
+      <option value="Рожь" {% if grain == 'Рожь' %}selected{% endif %}>Рожь</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="weight">Вес (тонн): </label>
+    <input type="number" id="weight" name="weight" step="0.01" value="{{ weight }}">
+  </div>
+
+  <div>
+    <button type="submit">Сформировать заказ</button>
+    <button type="submit" name="reset" value="1">Сброс</button>
+  </div>
+</form>
+
+{% if result %}
+  <div class="result">
+    {% if result.lower().startswith('ошибка') %}
+      <span class="error">{{ result }}</span>
+    {% else %}
+      <span>{{ result }}</span>
+    {% endif %}
+  </div>
+{% endif %}
+{% endblock %}
