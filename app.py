@@ -12,7 +12,10 @@ access_log = []
 
 app = Flask(__name__)
 
-app.secret_key = 'Секретно-секретный ключ'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'Секретно-секретный ключ')
+app.config['DB_TYPE'] = os.getenv('DB_TYPE', 'postgres')
+
+
 
 app.register_blueprint(lab1)
 app.register_blueprint(lab2)
