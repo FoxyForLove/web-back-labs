@@ -34,8 +34,13 @@
             <textarea name="article_text"></textarea>
         </div>
 
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
         <div>
-            <button type="sumbit"> Готово </button>
+            <button type="submit"> Готово </button>
         </div>
+
     </form>
 {% endblock %}

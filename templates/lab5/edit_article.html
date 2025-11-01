@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block lab %}Лабораторная работа №5{% endblock %}
+
+{% block main %}
+    
+    <h1>Редактировать статью</h1>
+
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+
+    <form method="post">
+        <style>
+
+            form div {
+                margin-bottom: 10px;
+            }
+
+            .button {
+                display: inline-block;
+                padding: 8px 16px;
+            }
+
+        </style>
+
+        <div>
+            <label>
+                Название статьи:
+                <input type="text" name="title" value="{{ article['title'] }}" maxlength="50">
+            </label>
+        </div>
+
+        <div>
+            <label>
+                Текст статьи:
+                <textarea name="article_text">{{ article['article_text'] }}</textarea>
+            </label>
+        </div>
+
+        <div>
+            <button type="submit" class="button">Сохранить изменения</button>
+        </div>
+
+        <p>
+        <a href="/lab5/list" class="button">Назад к списку статей</a>
+        </p>
+    </form>
+{% endblock %}

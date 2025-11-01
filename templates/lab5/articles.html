@@ -3,11 +3,45 @@
 {% block lab %}Лабораторная работа №5{% endblock %}
 
 {% block main %}   
+    <style>
+        .article-block {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #f0e2df;
+            border-radius: 5px;
+        }
+
+        .article-block h2 {
+            margin-top: 0;
+        }
+
+        .article-block form {
+            margin-top: 10px;
+        }
+
+    </style>
+
     <h1> Статьи</h1>
 
-    {% for article in articles %}
-        <h2>{{ article['title'] }}</h2>
-        <blockquote>{{ article ['article_text'] }}</blockquote>
-    {% endfor %}
+    {% if message %}
+        <p>{{ message }}</p>
+    {% else %}
+        {% for article in articles %}
+            <div class="article-block">
+                <h2>{{ article['title'] }}</h2>
+                <blockquote>{{ article ['article_text'] }}</blockquote>
+            </div>
+            
+            <div style="display: inline-flex; gap: 10px;">
+                <form action="/lab5/delete_article/{{ article.id }}" method="post" style="margin: 0;">
+                    <button type="submit">Удалить</button>
+                </form>
+                <form action="/lab5/edit_article/{{ article.id }}" method="post" style="margin: 0;">
+                    <button type="submit">Редактировать</button>
+                </form>
+            </div>
+        {% endfor %}
+    {% endif %}
     
 {% endblock %}
