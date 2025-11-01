@@ -5,7 +5,7 @@
 {% block main %}
 
     <h1> База знаний </h1>
-    <h1> Добро пожаловать, anonymous! </h1>
+    <h1> Добро пожаловать, {{ login if login else 'Anonymous'}}! </h1>
     <div>
         Тема лабораторной - Flask и БД
     </div>

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block lab %}Лабораторная работа №5{% endblock %}
+
+{% block main %}
+    <style>
+        form div {
+            margin-bottom: 10px;
+        }
+
+        form input[type="text"],
+        form input[type="password"] {
+            width: 200px;  
+            padding: 5px;  
+        }
+        .error {
+            color: #b30000;
+            font-weight: bold;
+            font-style: italic;
+        }
+    </style>
+    
+    <h1> Вход в систему </h1>
+    <form auction="/lab5/login" method="post">
+         <div>
+            <label>
+                Логин: <input type="text" name="login">
+            </label>
+        </div>
+
+         <div>
+            <label>
+                Пароль: <input type="password" name="password">
+            </label>
+        </div>
+
+        {% if error %}
+            <div class="error"> {{ error }} </div>
+        {% endif %}
+
+        <div>
+        <button type="sumbit"> Вход </button>
+        </div>
+    </form>
+{% endblock %}
