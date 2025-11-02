@@ -17,7 +17,7 @@
         }
 
         .article-block form {
-            margin-top: 10px;
+            margin: 10px;
         }
 
     </style>
@@ -30,18 +30,36 @@
         {% for article in articles %}
             <div class="article-block">
                 <h2>{{ article['title'] }}</h2>
-                <blockquote>{{ article ['article_text'] }}</blockquote>
+                    {% if article['is_public'] %}
+                        <div style="font-size: 0.8em; color: #285028; margin-top: -30px;">
+                            Публичная статья
+                        </div>
+                    {% endif %}
+                </h2>
+                <blockquote>{{ article['article_text'] }}</blockquote>
             </div>
             
             <div style="display: inline-flex; gap: 10px;">
-                <form action="/lab5/delete_article/{{ article.id }}" method="post" style="margin: 0;">
+                <form action="/lab5/delete_article/{{ article.id }}" method="post" style="margin-right: 0;">
                     <button type="submit">Удалить</button>
                 </form>
-                <form action="/lab5/edit_article/{{ article.id }}" method="post" style="margin: 0;">
+                <form action="/lab5/edit_article/{{ article.id }}" method="post" style="margin-right: 0;">
                     <button type="submit">Редактировать</button>
                 </form>
+
+                {% if article['is_favorite'] %}
+                    <form action="/lab5/unfavorite/{{ article.id }}" method="post" style="margin-right: 0; margin-bottom: 20px;">
+                        <button type="submit"> ❤️️ Убрать из любимых</button>
+                    </form>
+                {% else %}
+                    <form action="/lab5/favorite/{{ article.id }}" method="post" style="margin-right: 0; margin-bottom: 20px;">
+                        <button type="submit"> Добавить в любимые</button>
+                    </form>
+                {% endif %}
             </div>
         {% endfor %}
     {% endif %}
+
+    <p><a href="/lab5/">Назад</a></p>
     
 {% endblock %}

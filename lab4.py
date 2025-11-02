@@ -262,11 +262,13 @@ def grain_order():
 
     return render_template("lab4/grain_order.html", result=result, grain=grain, weight=weight)
 
+
 def find_user_by_login(login):
     for user in users:
         if user['login'] == login:
             return user
     return None
+
 
 @lab4.route('/lab4/register', methods=['GET', 'POST'])
 def register():
@@ -292,6 +294,7 @@ def register():
     users.append({'login': login_in, 'name': name, 'password': password})
     return redirect('/lab4/login')
 
+
 @lab4.route('/lab4/users', methods=['GET'])
 def users_list():
     if 'login' not in session:
@@ -299,6 +302,7 @@ def users_list():
     current_login = session['login']
     users_view = [{'login': user['login'], 'name': user.get('name','')} for user in users]
     return render_template('lab4/users.html', users=users_view, current=current_login)
+
 
 @lab4.route('/lab4/users/delete', methods=['POST'])
 def users_delete():
@@ -309,6 +313,7 @@ def users_delete():
         global users
         users = [user for user in users if user['login'] != current_login]
     return redirect('/lab4/login')
+
 
 @lab4.route('/lab4/users/edit', methods=['GET', 'POST'])
 def users_edit():

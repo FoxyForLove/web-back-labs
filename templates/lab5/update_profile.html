@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block lab %}Лабораторная работа №5{% endblock %}
+
+{% block main %}
+    <style>
+        form div {
+            margin-bottom: 10px;
+        }
+
+        form input[type="text"],
+        form input[type="password"] {
+            width: 200px;  
+            padding: 5px;  
+        }
+        .error {
+            color: #b30000;
+            font-weight: bold;
+            font-style: italic;
+        }
+    </style>
+    
+    <h1>Смена имени и пароля</h1>
+
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+
+    <form method="post">
+        <div>
+            <label>Новое имя:
+                <input type="text" name="real_name" maxlength="50">
+            </label>
+        </div>
+        <div>
+            <label>Новый пароль:
+                <input type="password" name="password">
+            </label>
+        </div>
+        <div>
+            <label>Подтверждение пароля:
+                <input type="password" name="confirm">
+            </label>
+        </div>
+        <button type="submit">Сохранить</button>
+    </form>
+{% endblock %}
