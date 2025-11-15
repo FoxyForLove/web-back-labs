@@ -28,6 +28,9 @@ function getOfficeList() {
             const li = document.createElement('li');
             li.innerText = `${office.number}: ${office.tenant || 'свободен'} (Cтоимость аренды: ${office.price})`;
 
+            const buttonsDiv = document.createElement('div');
+            buttonsDiv.className = 'buttons';
+
             const bookingButton = document.createElement('button');
             bookingButton.innerText = 'Зарезервировать';
             bookingButton.onclick = function() {booking(office.number)};
@@ -38,6 +41,7 @@ function getOfficeList() {
             cancelButton.onclick = function() { cancelation(office.number) };
             li.appendChild(cancelButton);
 
+            li.appendChild(buttonsDiv);
             ul.appendChild(li);
 
             const totalDiv = document.getElementById('total');
@@ -133,6 +137,34 @@ document.addEventListener('DOMContentLoaded', function() {
 {% endblock %}
 
 {% block main %}
+    <style>
+        #office-list li {
+            padding: 5px;
+        }
+
+        #office-list li button {
+            display: inline-block;   
+            margin-left: 6px;        
+            padding: 5px 10px;       
+            background-color: #a14d4d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #office-list li button:hover {
+            background-color: #8b3e3e;
+        }
+
+        #total {
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+    </style>
     <h1>Список кабинетов</h1>
     <ul id="office-list"></ul>
     <div id="total"></div>
