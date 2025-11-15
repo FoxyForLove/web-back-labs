@@ -20,12 +20,13 @@ function getOfficeList() {
         return response.json()
     })
     .then(function(data) {
-        const office_list = data.result;
+        const office_list = data.result.offices;
         const ul = document.getElementById('office-list');
+
         for(let i = 0; i < office_list.length; i++) {
             const office = office_list[i];
             const li = document.createElement('li');
-            li.innerText = `${office.number}: ${office.tenant || 'свободен'}`;
+            li.innerText = `${office.number}: ${office.tenant || 'свободен'} (Cтоимость аренды: ${office.price})`;
 
             const bookingButton = document.createElement('button');
             bookingButton.innerText = 'Зарезервировать';
@@ -38,6 +39,9 @@ function getOfficeList() {
             li.appendChild(cancelButton);
 
             ul.appendChild(li);
+
+            const totalDiv = document.getElementById('total');
+            totalDiv.innerText = data.result.total;
         }
     });
 }
@@ -131,4 +135,5 @@ document.addEventListener('DOMContentLoaded', function() {
 {% block main %}
     <h1>Список кабинетов</h1>
     <ul id="office-list"></ul>
+    <div id="total"></div>
 {% endblock %}
