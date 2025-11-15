@@ -8,7 +8,12 @@
     <div class="ticket-body">
         <ul class="ticket-details">
             <li><strong>ФИО:</strong> {{ name }}</li>
-            <li><strong>Возраст:</strong> {{ age }} {% if age < 18 %} — <span class="child-label">Детский билет</span>{% endif %}</li>
+            <li>
+                <strong>Возраст:</strong> {{ age }} 
+                {% if age < 18 %} 
+                    <span class="child-label">Детский билет</span>
+                {% endif %}
+            </li>
             <li><strong>Дата поездки:</strong> {{ date }}</li>
             <li><strong>Пункт выезда:</strong> {{ from }}</li>
             <li><strong>Пункт назначения:</strong> {{ to }}</li>
