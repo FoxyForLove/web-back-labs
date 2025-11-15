@@ -1,6 +1,4 @@
 from flask import Blueprint, request, render_template,redirect, session, current_app,jsonify
-import psycopg2
-from psycopg2.extras import RealDictCursor
 from werkzeug.security import check_password_hash, generate_password_hash
 import sqlite3 
 from os import path
@@ -20,14 +18,16 @@ def main():
 @lab6.route("/lab6/json-rpc-api/", methods = ['POST'])
 def api():
     data = request.json
+    id = data['id']
     if data['method'] == 'info':
         return {
             'jsonrpc': '2.0',
             'result': offices,
-            'id': data['id']
+            'id': id
         } 
     
     login = session.get('login')
+    
     if not login:
         return {
             'jsonrpc': '2.0',
@@ -35,7 +35,7 @@ def api():
                 'code': 1,
                 'message': 'Unauthorized'
             },
-            'id' : data['id']
+            'id' : id
         }
     
     if data['method'] == 'booking':
@@ -49,16 +49,45 @@ def api():
                             'code': 2,
                             'message': 'Already booked'
                         },
-                        'id': data['id']
+                        'id': id
                     }
                 
                 office['tenant'] = login
                 return {
                     'jsonrpc': '2.0',
                     'result': 'success',
-                    'id': data['id']
+                    'id': id
                 }
-
+            
+    if data['method'] == 'cancelation':
+        office_number = data['params']
+        for office in offices:
+            if office['number'] == office_number:
+                if office['tenant'] == '':
+                    return {
+                        'jsonrpc': '2.0',
+                        'error': {
+                            'code': 3,
+                            'message': 'Office not booked'
+                        },
+                        'id': id
+                    }
+                if office['tenant'] != login:
+                    return {
+                        'jsonrpc': '2.0',
+                        'error': {
+                            'code': 4,
+                            'message': 'Not your booking'
+                        },
+                        'id': id
+                    }
+                
+                office['tenant'] = ''
+                return {
+                    'jsonrpc': '2.0',
+                    'result': 'success',
+                    'id': id
+                }
     return {
         'jsonrpc': '2.0',
         'error': {
