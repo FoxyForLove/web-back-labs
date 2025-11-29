@@ -2,6 +2,7 @@ from flask import Blueprint, request, render_template, session, current_app, abo
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import sqlite3
+import jsonify
 from os import path
 
 lab7 = Blueprint('lab7', __name__)
@@ -75,7 +76,8 @@ def get_film(id):
 
 @lab7.route("/lab7/rest-api/films/<int:id>", methods=['DELETE'])
 def del_film(id):
-   if id < 0 or id >= len(films):
+    if id < 0 or id >= len(films):
+        abort(404, description="Film not found")
     del films[id]
     return '', 204
    
