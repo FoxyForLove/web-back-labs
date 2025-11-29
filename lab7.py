@@ -2,7 +2,6 @@ from flask import Blueprint, request, render_template, session, current_app, abo
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import sqlite3
-import jsonify
 from os import path
 
 lab7 = Blueprint('lab7', __name__)
