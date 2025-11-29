@@ -88,6 +88,8 @@ def put_films(id):
         abort(404, description="Film not found")
 
     film = request.get_json()
+    if film['description'] == '':
+        return {'description': 'Заполните описание'}, 400
     films[id] = film 
     return films[id], 200
 
@@ -95,8 +97,11 @@ def put_films(id):
 @lab7.route("/lab7/rest-api/films/", methods=['POST'])
 def add_film():
     film = request.get_json()
-    films.append(film)
 
+    if film['description'] == '':
+        return {'description': 'Заполните описание'}, 400
+    
+    films.append(film)
     new_id = len(films) - 1
     film_with_id = films[new_id]
     film_with_id["id"] = new_id 
