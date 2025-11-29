@@ -1,9 +1,5 @@
-from flask import Blueprint, request, render_template, session, current_app, abort
-import psycopg2
-from psycopg2.extras import RealDictCursor
-import sqlite3
-from os import path
-
+from flask import Blueprint, request, render_template, abort
+import datetime
 lab7 = Blueprint('lab7', __name__)
 
 @lab7.route("/lab7/")
@@ -61,6 +57,30 @@ films = [
 ]
 
 
+def validate_film(film):
+    errors = {}
+
+    if not film.get('title_ru') or film['title_ru'].strip() == '':
+        errors['title_ru'] = 'Название на русском обязательно'
+
+    if (not film.get('title') or film['title'].strip() == '') and (not film.get('title_ru') or film['title_ru'].strip() == ''):
+        errors['title'] = 'Укажите хотя бы одно название (русское или оригинальное)'
+
+    try:
+        year = int(film.get('year', 0))
+        current_year = datetime.datetime.now().year
+        if year < 1895 or year > current_year:
+            errors['year'] = f'Год должен быть от 1895 до {current_year}'
+    except ValueError:
+        errors['year'] = 'Год должен быть числом'
+
+    if not film.get('description') or film['description'].strip() == '':
+        errors['description'] = 'Заполните описание'
+    elif len(film['description']) > 2000:
+        errors['description'] = 'Описание не должно превышать 2000 символов'
+
+    return errors
+
 @lab7.route("/lab7/rest-api/films/", methods=['GET'])
 def get_films():
     return films
@@ -87,12 +107,14 @@ def put_films(id):
         abort(404, description="Film not found")
 
     film = request.get_json()
+    errors = validate_film(film)
 
     if film['title'] == '' and film['title_ru'] != '':
         film['title'] = film['title_ru']
-
-    if film['description'] == '':
-        return {'description': 'Заполните описание'}, 400
+    
+    if errors:
+        return errors, 400
+    
     films[id] = film 
     return films[id], 200
 
@@ -100,12 +122,13 @@ def put_films(id):
 @lab7.route("/lab7/rest-api/films/", methods=['POST'])
 def add_film():
     film = request.get_json()
+    errors = validate_film(film)
 
     if film['title'] == '' and film['title_ru'] != '':
         film['title'] = film['title_ru']
 
-    if film['description'] == '':
-        return {'description': 'Заполните описание'}, 400
+    if errors:
+        return errors, 400
     
     films.append(film)
     new_id = len(films) - 1
