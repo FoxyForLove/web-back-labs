@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block lab %}Лабораторная работа №8{% endblock %}
+
+{% block script %}
+    <style>
+        .lab8-links {
+                margin: 20px auto;
+                width: 60%;
+            }
+
+            .lab8-links li {
+                margin: 10px 0;
+            }
+
+            .lab8-links li a {
+                display: block;
+                padding: 12px 18px;
+                background-color: #753f3f;
+                color: white;
+                text-decoration: none;
+                border-radius: 6px;
+                transition: background-color 0.3s, transform 0.2s;
+            }
+
+            .lab8-links li a:hover {
+                background-color: #c77c7c;
+                transform: translateX(4px);
+            }
+        </style>
+{% endblock %}
+
+{% block main %}
+    <h1>Добро пожаловать, {{ username }}</h1>
+
+     <ul class="lab8-links">
+        <li><a href="/lab8/login">Вход</a></li>
+        <li><a href="/lab8/register">Регистрация</a></li>
+        <li><a href="/lab8/articles">Список статей</a></li>
+        <li><a href="/lab8/create">Создать статью</a></li>
+    </ul>
+{% endblock %}
