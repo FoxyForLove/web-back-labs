@@ -91,9 +91,11 @@ def logout():
 
 
 @lab8.route('/lab8/articles/')
-@login_required
 def article_list():
-    all_articles = articles.query.all()
+    if current_user.is_authenticated:
+        all_articles = articles.query.all()
+    else:
+        all_articles = articles.query.filter_by(is_public=True).all()
     return render_template('lab8/articles.html', articles = all_articles)
 
 
@@ -105,6 +107,7 @@ def create_article():
 
     title = request.form.get('title')
     text = request.form.get('article_text')
+    is_public = request.form.get('is_public') == 'on'
 
     if not title:
         return render_template('lab8/create.html',
@@ -113,7 +116,7 @@ def create_article():
         return render_template('lab8/create.html',
                                error='Текст статьи не должен быть пустым')
 
-    new_article = articles(title = title, article_text=text, login_id = current_user.id)
+    new_article = articles(title = title, article_text=text, login_id = current_user.id, is_public=is_public)
     db.session.add(new_article)
     db.session.commit()
     return redirect('/lab8/articles/')

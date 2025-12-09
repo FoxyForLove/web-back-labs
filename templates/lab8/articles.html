@@ -36,13 +36,13 @@
 
 {% block main %}
     <h1>Статьи</h1>
-
     {% if articles %}
         <table border="1" cellpadding="5" cellspacing="0" style="margin:auto; border-collapse:collapse; width:80%;">
             <thead>
                 <tr>
                     <th>Заголовок</th>
                     <th>Текст</th>
+                    <th style="text-align:center;">Публичная</th>
                     <th style="text-align:center;">Действие</th>
                 </tr>
             </thead>
@@ -52,14 +52,20 @@
                         <td>{{ a.title }}</td>
                         <td>{{ a.article_text }}</td>
                         <td style="text-align:center;">
-                            <a href="/lab8/edit/{{ a.id }}" class="action-button">
-                                Редактировать
-                            </a>
-                            <form action="/lab8/delete/{{ a.id }}" method="post">
-                                <button type="submit" class="action-button">
-                                    Удалить
-                                </button>
-                            </form>
+                                {% if a.is_public %}Да{% else %}Нет{% endif %}
+                        </td>
+                        <td style="text-align:center;">
+                            {% if current_user.is_authenticated and a.login_id == current_user.id %}
+                                <a href="/lab8/edit/{{ a.id }}" class="action-button">
+                                    Редактировать
+                                </a>
+                                <form action="/lab8/delete/{{ a.id }}" method="post">
+                                    <button type="submit" class="action-button">
+                                        Удалить
+                                    </button>
+                                </form>
+                            {% else %}
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
@@ -69,7 +75,6 @@
     {% else %}
         <p>Статей пока нет</p>
     {% endif %}
-
         <p>
             <a href="/lab8/create" class="inline-button">Создать новую статью</a>
         </p>
@@ -77,5 +82,4 @@
         <p>
             <a href="/lab8/" class="inline-button">← Назад</a>
         </p>
-
 {% endblock %}
