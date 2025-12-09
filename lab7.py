@@ -1,67 +1,43 @@
-from flask import Blueprint, request, render_template, abort
+from flask import Blueprint, request, render_template, abort, current_app
+import psycopg2
+import sqlite3
+from psycopg2.extras import RealDictCursor
 import datetime
+from os import path
+
 lab7 = Blueprint('lab7', __name__)
+
+def db_connect():
+    if current_app.config['DB_TYPE'] == 'postgres':
+        conn = psycopg2.connect(
+            host='127.0.0.1',
+            database='liza_bulygina',
+            user='liza_bulygina',
+            password='123'
+        )
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+    else:
+        dir_path = path.dirname(path.realpath(__file__))
+        db_path = path.join(dir_path, 'database.db')
+        conn = sqlite3.connect(db_path)
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+    return conn, cur
+
+def db_close(conn, cur):
+    conn.commit()
+    cur.close()
+    conn.close()
 
 @lab7.route("/lab7/")
 def main():
     return render_template("lab7/index.html")
 
-films = [
-    {
-        "title": "Taxi",
-        "title_ru": "Такси",
-        "year": 1998,
-        "description": "Французский комедийный боевик о талантливом водителе такси в Марселе,"
-        "который вынужден помочь неуклюжему полицейскому‑инспектору поймать банду "
-        "профессиональных грабителей банков. Этот фильм стал первой частью успешной франшизы."
-    },
-    {
-        "title": "Léon: The Professional",
-        "title_ru": "Леон",
-        "year": 1994,
-        "description": "Криминальный боевик‑драма режиссёра Люка Бессона, "
-        "рассказывающий историю профессионального наёмного убийцы Леона, который "
-        "берёт под свою защиту 12‑летнюю девочку Матильду после того, как её семья "
-        "была уничтожена коррумпированными полицейскими. Он учит её искусству выживания, "
-        "и между ними зарождается нестандартная связь."
-    },
-    {
-        "title": "Resident Evil",
-        "title_ru": "Обитель зла",
-        "year": 2002,
-        "description": "Британско‑американский фантастический боевик‑хоррор, первая "
-        "экранизация одноимённой серии видеоигр. Фильм рассказывает о героине Алисе и"
-        "группе спецназовцев, пытающихся остановить вспышку вируса T и предотвратить"
-        " зомби‑апокалипсис в засекреченном комплексе корпорации Umbrella. "
-
-    },
-    {
-        "title": "Intouchables",
-        "title_ru": "1+1",
-        "year": 2011,
-        "description": "Трогательная французская комедийная драма, основанная на реальной"
-        " истории: богатый аристократ Филипп, ставший инвалидом после несчастного случая, "
-        "нанимает себе нянечку/помощника — бывшего мелкого правонарушителя Дрисса. "
-        "Между ними развиваются искренняя дружба и взаимное уважение, несмотря на социальные "
-        "и расовые различия."
-    },
-    {
-        "title": "Green Book",
-        "title_ru": "Зелёная книга",
-        "year": 2018,
-        "description": "Биографическая драма‑дружба, основанная на реальных событиях:"
-        " чернокожий джазовый пианист Дон Ширли нанимает водителя Тони Валлелонгу для "
-        "турне по южным штатам США. В поездке они сталкиваются с расизмом и предрассудками, "
-        "но по ходу путешествия между ними возникает глубокая дружба."
-    }
-]
-
-
 def validate_film(film):
     errors = {}
 
     if not film.get('title_ru') or film['title_ru'].strip() == '':
-        errors['title_ru'] = 'Название на русском обязательно'
+        errors['title_ru'] = 'Русское название обязательно'
 
     if (not film.get('title') or film['title'].strip() == '') and (not film.get('title_ru') or film['title_ru'].strip() == ''):
         errors['title'] = 'Укажите хотя бы одно название (русское или оригинальное)'
@@ -83,27 +59,52 @@ def validate_film(film):
 
 @lab7.route("/lab7/rest-api/films/", methods=['GET'])
 def get_films():
-    return films
+    conn, cur = db_connect()
 
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("SELECT * FROM films ORDER BY year")
+    else:
+        cur.execute("SELECT * FROM films ORDER BY year")
+
+    films = cur.fetchall()
+    db_close(conn, cur)
+    
+    return films
 
 @lab7.route("/lab7/rest-api/films/<int:id>", methods=['GET'])
 def get_film(id):
-    if id < 0 or id >= len(films):
-        abort(404,description="Films not found")
-    return films[id]
+    conn, cur = db_connect()
 
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("SELECT * FROM films WHERE id=%s", (id,))
+    else:
+        cur.execute("SELECT * FROM films WHERE id=?", (id,))
+
+    film = cur.fetchone()
+    db_close(conn, cur)
+
+    if not film:
+        abort(404, description="Film not found")
+
+    return film
 
 @lab7.route("/lab7/rest-api/films/<int:id>", methods=['DELETE'])
 def del_film(id):
-    if id < 0 or id >= len(films):
-        abort(404, description="Film not found")
-    del films[id]
+    conn, cur = db_connect()
+
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("DELETE FROM films WHERE id=%s", (id,))
+    else:
+        cur.execute("DELETE FROM films WHERE id=?", (id,))
+
+    db_close(conn, cur)
     return '', 204
-   
 
 @lab7.route("/lab7/rest-api/films/<int:id>", methods=['PUT'])
 def put_films(id):
-    if id < 0 or id >= len(films):
+    conn, cur = db_connect()
+
+    if id < 0:
         abort(404, description="Film not found")
 
     film = request.get_json()
@@ -111,13 +112,25 @@ def put_films(id):
 
     if film['title'] == '' and film['title_ru'] != '':
         film['title'] = film['title_ru']
-    
+
     if errors:
         return errors, 400
-    
-    films[id] = film 
-    return films[id], 200
 
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("""
+            UPDATE films
+            SET title=%s, title_ru=%s, year=%s, description=%s
+            WHERE id=%s
+        """, (film['title'], film['title_ru'], film['year'], film['description'], id))
+    else:
+        cur.execute("""
+            UPDATE films
+            SET title=?, title_ru=?, year=?, description=?
+            WHERE id=?
+        """, (film['title'], film['title_ru'], film['year'], film['description'], id))
+
+    db_close(conn, cur)
+    return film, 200
 
 @lab7.route("/lab7/rest-api/films/", methods=['POST'])
 def add_film():
@@ -129,10 +142,24 @@ def add_film():
 
     if errors:
         return errors, 400
-    
-    films.append(film)
-    new_id = len(films) - 1
-    film_with_id = films[new_id]
-    film_with_id["id"] = new_id 
 
+    conn, cur = db_connect()
+
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("""
+            INSERT INTO films (title, title_ru, year, description)
+            VALUES (%s, %s, %s, %s) RETURNING id
+        """, (film['title'], film['title_ru'], film['year'], film['description']))
+        new_id = cur.fetchone()['id']
+    else:
+        cur.execute("""
+            INSERT INTO films (title, title_ru, year, description)
+            VALUES (?, ?, ?, ?)
+        """, (film['title'], film['title_ru'], film['year'], film['description']))
+        new_id = cur.lastrowid
+
+    film_with_id = film
+    film_with_id["id"] = new_id
+
+    db_close(conn, cur)
     return film_with_id, 201
