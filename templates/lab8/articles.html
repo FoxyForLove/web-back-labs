@@ -36,6 +36,14 @@
 
 {% block main %}
     <h1>Статьи</h1>
+
+    <form method="get" action="/lab8/articles/">
+        <div>
+            <input type="text" name="search" placeholder="Поиск по статьям" value="{{ request.args.get('search', '') }}">
+            <button type="submit" class="inline-button">Искать</button>
+        </div>
+    </form>
+    
     {% if articles %}
         <table border="1" cellpadding="5" cellspacing="0" style="margin:auto; border-collapse:collapse; width:80%;">
             <thead>

@@ -90,13 +90,29 @@ def logout():
     return redirect('/lab8/')
 
 
-@lab8.route('/lab8/articles/')
+@lab8.route('/lab8/articles/', methods=['GET', 'POST'])
 def article_list():
+    search_query = request.args.get('search', '')  
+
     if current_user.is_authenticated:
-        all_articles = articles.query.all()
+        if search_query:
+            all_articles = articles.query.filter(
+                (articles.title.ilike(f'%{search_query}%')) | 
+                (articles.article_text.ilike(f'%{search_query}%'))
+            ).all()
+        else:
+            all_articles = articles.query.all()
     else:
-        all_articles = articles.query.filter_by(is_public=True).all()
-    return render_template('lab8/articles.html', articles = all_articles)
+        if search_query:
+            all_articles = articles.query.filter(
+                (articles.is_public == True) &
+                ((articles.title.ilike(f'%{search_query}%')) |
+                 (articles.article_text.ilike(f'%{search_query}%')))
+            ).all()
+        else:
+            all_articles = articles.query.filter_by(is_public=True).all()
+
+    return render_template('lab8/articles.html', articles=all_articles)
 
 
 @lab8.route('/lab8/create', methods=['GET', 'POST'])
