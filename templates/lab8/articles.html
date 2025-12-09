@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block lab %}Лабораторная работа №8{% endblock %}
+
+{% block script %}
+    <style>
+        .action-button {
+            font-size: 14px;
+            padding: 4px 10px;
+            margin: 2px;
+            background-color: #c77c7c;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .action-button:hover {
+            background-color: #a94442;
+        }
+        .inline-button {
+            display: inline-block;
+            background-color:  #964d4c;
+            padding: 6px 14px;
+            margin: 0 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .inline-button:hover {
+            background-color: #963331;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <h1>Статьи</h1>
+
+    {% if articles %}
+        <table border="1" cellpadding="5" cellspacing="0" style="margin:auto; border-collapse:collapse; width:80%;">
+            <thead>
+                <tr>
+                    <th>Заголовок</th>
+                    <th>Текст</th>
+                    <th style="text-align:center;">Действие</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in articles %}
+                    <tr>
+                        <td>{{ a.title }}</td>
+                        <td>{{ a.article_text }}</td>
+                        <td style="text-align:center;">
+                            <a href="/lab8/edit/{{ a.id }}" class="action-button">
+                                Редактировать
+                            </a>
+                            <form action="/lab8/delete/{{ a.id }}" method="post">
+                                <button type="submit" class="action-button">
+                                    Удалить
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+        <p>Статей пока нет</p>
+    {% endif %}
+
+        <p>
+            <a href="/lab8/create" class="inline-button">Создать новую статью</a>
+        </p>
+
+        <p>
+            <a href="/lab8/" class="inline-button">← Назад</a>
+        </p>
+
+{% endblock %}

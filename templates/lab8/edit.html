@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block lab %}Лабораторная работа №8{% endblock %}
+
+{% block script %}
+    <style>
+        .inline-button {
+            display: inline-block;
+            background-color:  #964d4c;
+            padding: 6px 14px;
+            margin: 0 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .inline-button:hover {
+            background-color: #963331;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <h1>Редактировать статью</h1>
+
+    {% if error %}
+
+        <div style="color:red;">
+            {{ error }}
+        </div>
+
+    {% endif %}
+
+    <form method="post">
+        <div>
+            <label>Заголовок: <input type="text" name="title" value="{{ article.title }}"></label>
+        </div>
+
+        <div>
+            <label>Текст статьи:<br>
+                
+            <textarea name="article_text">
+                {{ article.article_text }}
+            </textarea></label>
+        </div>
+
+        <button type="submit">Сохранить</button>
+        
+        <p>
+            <a href="/lab8/articles/" class="inline-button">← Назад к списку статей</a>
+        </p>
+    </form>
+{% endblock %}
