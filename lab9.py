@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, session, jsonify
+from flask_login import current_user, login_required
 import random
 
 lab9 = Blueprint('lab9', __name__)
@@ -60,7 +61,8 @@ def index():
         box_ids=range(BOX_COUNT),
         box_state=GLOBAL_BOX_STATE,
         positions=session["positions"],
-        remaining=remaining
+        remaining=remaining,
+        is_auth=current_user.is_authenticated
     )
 
 
@@ -85,6 +87,9 @@ def open_box():
     if GLOBAL_BOX_STATE[box_id]:
         return jsonify({"error": "Эта коробка уже открыта"})
 
+    if box_id >= 7 and not current_user.is_authenticated:
+        return jsonify({"error": "Эту коробку может открыть только авторизованный пользователь"})
+
     GLOBAL_BOX_STATE[box_id] = True
     session["opened"] += 1
 
@@ -99,6 +104,7 @@ def open_box():
 
 
 @lab9.route("/lab9/reset", methods=['POST'])
+@login_required
 def reset():
     global GLOBAL_BOX_STATE
 

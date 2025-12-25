@@ -42,8 +42,10 @@
             </div>
         {% endfor %}
     </div>
-
-    <button id="reset-session" class="reset-btn">Сбросить коробки</button>
+    
+    {% if is_auth %}
+        <button id="reset-session">🎅 Дед Мороз</button>
+    {% endif %}
 
     <div id="message"></div>
 {% endblock %}

@@ -11,25 +11,37 @@ function updateRemaining(n) {
 }
 
 function showCongrats(box, text, present) {
-    box.innerHTML = '';
+    let popup = document.createElement('div');
+    popup.className = 'congrats-popup';
+    popup.innerHTML = `
+        <img src="/static/lab9/${present}" class="present-img">
+        <p>${text}</p>
+    `;
 
-    let div = document.createElement('div');
-    div.className = 'congrats-popup';
+    let field = document.getElementById('field');
+    field.append(popup);
 
-    let img = document.createElement('img');
-    img.src = `/static/lab9/${present}`;
-    img.className = 'present-img';
+    popup.style.position = 'absolute';
 
-    let p = document.createElement('p');
-    p.innerText = text;
+    let left = box.offsetLeft;
+    let top = box.offsetTop;
 
-    div.append(img);
-    div.append(p);
+    let popupRect = popup.getBoundingClientRect();
+    let margin = 10;
+
+    let maxLeft = field.clientWidth - popupRect.width - margin;
+    let maxTop = field.clientHeight - popupRect.height - margin;
+
+    if (left < margin) left = margin;
+    if (top < margin) top = margin;
+    if (left > maxLeft) left = maxLeft;
+    if (top > maxTop) top = maxTop;
+
+    popup.style.left = left + 'px';
+    popup.style.top = top + 'px';
 
     box.classList.add('opened');
     box.onclick = null;
-
-    box.append(div);
 }
 
 function handleBoxClick(box) {

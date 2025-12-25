@@ -8,6 +8,7 @@
     padding: 15px;
     box-sizing: border-box;
     overflow: hidden;
+    z-index: 1;
 
     border: 2px solid rgba(255, 255, 255, 0.25);
     border-radius: 12px;
@@ -24,12 +25,13 @@
     transition: transform 0.2s;
 }
 
-.box:hover {
+.box:hover .box-image {
     transform: scale(1.05);
 }
 
 .box-image {
     width: 100px;
+    transition: transform 0.2s;
 }
 
 .box.opened {
@@ -55,9 +57,15 @@
     font-weight: bold;
     color: #8b1e1e;
     font-size: 14px;
+    z-index: 5;
+    transition: transform 0.2s, z-index 0s;
     position: relative;
-    z-index: 99999;
     box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+.congrats-popup:hover {
+    z-index: 999999;
+    transform: scale(1.05);
 }
 
 /* Сообщение */
@@ -66,6 +74,13 @@
     min-height: 20px;
     color: #fff5f5;
     font-weight: bold;
+    position: relative; 
+    z-index: 999999;
+              
+}
+
+#message:hover {
+   z-index: 999999;
 }
 
 /* Шапка и подвал */
@@ -121,4 +136,43 @@ main {
 
 .home-link:hover {
     background-color: #6f1616;
+}
+
+#reset-session {
+    background: linear-gradient(135deg, #b22222, #8b1e1e);
+    color: #fff;
+    padding: 10px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-radius: 10px;
+
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+
+    cursor: pointer;
+    margin-top: 15px;
+
+    box-shadow: 
+        0 4px 12px rgba(0,0,0,0.25),
+        inset 0 0 8px rgba(255, 255, 255, 0.15);
+
+    transition:
+        background 0.3s ease,
+        transform 0.15s ease,
+        box-shadow 0.3s ease;
+}
+
+#reset-session:hover {
+    background: linear-gradient(135deg, #c52a2a, #9c2424);
+    transform: translateY(-2px);
+    box-shadow:
+        0 6px 16px rgba(0,0,0,0.35),
+        inset 0 0 10px rgba(255, 255, 255, 0.25);
+}
+
+#reset-session:active {
+    transform: translateY(0);
+    box-shadow:
+        0 3px 10px rgba(0,0,0,0.25),
+        inset 0 0 6px rgba(255, 255, 255, 0.2);
 }

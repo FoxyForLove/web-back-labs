@@ -47,6 +47,9 @@ def register():
 
 
     login_user(new_user, remember=True)
+
+    session["opened"] = 0
+
     return redirect('/lab8/')
 
 
@@ -74,6 +77,9 @@ def login():
         if check_password_hash(user.password, password_form):
             remember = True if remember_form else False
             login_user(user, remember=remember)
+
+            session["opened"] = 0
+
             return redirect('/lab8/')
         if next_url:
             return redirect(next_url.encode('utf-8'))
@@ -87,6 +93,7 @@ def login():
 @login_required
 def logout():
     logout_user()
+    session["opened"] = 0
     return redirect('/lab8/')
 
 
