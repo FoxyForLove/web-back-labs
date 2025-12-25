@@ -1,10 +1,49 @@
 {% extends 'base.html' %}
 
-{% block lab %}Лабораторная работа №8{% endblock %}
+{% block lab %}Лабораторная работа №9{% endblock %}
 
 {% block script %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='lab9/styles.css') }}">
+    <style>
+        body {
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: url("{{ url_for('static', filename='lab9/new_year.jpg') }}") center/cover no-repeat;
+            filter: blur(2px);
+            transform: scale(1.05);
+            z-index: -1;
+        }
+    </style>
+    <script src="{{ url_for('static', filename='lab9/main.js') }}"></script>
 {% endblock %}
 
 {% block main %}
-    <h1> Поздравления </h1>
+    <h1>Поздравления с Новым Годом!</h1>
+
+    <p>
+        Оставшиеся закрытые коробки:
+        <span id="remaining">{{ remaining }}</span>
+    </p>
+
+    <div id="field">
+        {% for i in box_ids %}
+            <div class="box"
+                data-id="{{ i }}"
+                style="left: {{ positions[i].left }}px; top: {{ positions[i].top }}px;">
+                <img src="{{ url_for('static', filename='lab9/gift' ~ (i+1) ~ '.png') }}"
+                    class="box-image">
+            </div>
+        {% endfor %}
+    </div>
+
+    <button id="reset-session" class="reset-btn">Сбросить коробки</button>
+
+    <div id="message"></div>
 {% endblock %}
