@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block lab %}РГЗ — Сеанс{% endblock %}
+
+{% block script %}
+    <link rel="stylesheet" href="/static/rgz/rgz.css">
+{% endblock %}
+
+{% block main %}
+
+<!-- < Сеанс > -->
+<div class="rgz-container">
+
+    <!-- < Панель пользователя > -->
+    <header class="rgz-local-header">
+        <a class="home-link" href="/rgz/">← назад</a> Сеанс #{{ screening_id }}
+    </header>
+
+    <div class="rgz-topbar">
+        <div>
+            {% if login %}
+                {% if is_admin and "Администратор" not in name %}
+                    Вы вошли как: <b>{{ name }}</b> ({{ login }}) <span class="rgz-admin-badge">ADMIN</span>
+                {% else %}
+                    Вы вошли как: <b>{{ name }}</b> ({{ login }})
+                {% endif %}
+            {% else %}
+                Вы не авторизованы
+            {% endif %}
+        </div>
+
+        <div class="rgz-actions">
+            {% if login %}
+                <button class="rgz-btn" onclick="logout()">Выйти</button>
+                <button class="rgz-btn rgz-btn-danger" onclick="deleteMe()">Удалить аккаунт</button>
+            {% endif %}
+        </div>
+
+        <div id="msg" class="rgz-msg"></div>
+    </div>
+
+    <!-- < Места > -->
+    <div class="rgz-card">
+
+        <div id="screening-info" class="rgz-screening-info"></div>
+
+        <h2>Места (30)</h2>
+
+        <div class="rgz-screen">Экран</div>
+
+        <div id="seat-grid" class="rgz-seat-rows"></div>
+
+        <div id="msg-seats" class="rgz-msg" style="margin-top:12px;"></div>
+
+        <!-- < Подсказки > -->
+        <div class="rgz-hint">
+            <div class="rgz-hint-title">📌 Правила бронирования:</div>
+
+            <div class="rgz-hint-line"><b>Свободно</b> — нажмите, чтобы занять <span class="rgz-note">(нужно войти)</span></div>
+            <div class="rgz-hint-line"><b>Занято</b> — можно посмотреть имя того, кто занял</div>
+            <div class="rgz-hint-line"><b>Ваше место</b> — нажмите, чтобы снять бронь</div>
+            <div class="rgz-hint-line"><b>Сеанс в прошлом</b> — только просмотр</div>
+            <div class="rgz-hint-line"><b>Лимит на одного человека</b>: не более 5 мест на один сеанс</div>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="/static/rgz/rgz.js"></script>
+<script>
+    loadSeats({{ screening_id }});
+</script>
+
+{% endblock %}
